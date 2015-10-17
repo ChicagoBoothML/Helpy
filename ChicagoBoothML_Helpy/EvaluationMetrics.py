@@ -12,7 +12,7 @@ def rmse(y_hat, y):
     return sqrt(mse(y_hat, y))
 
 
-def bin_class_dev(p_hat, y, pos_cat, tiny=1e-32):
+def bin_class_dev(p_hat, y, pos_cat=None, tiny=1e-32):
     if y.dtype == 'category':
         y_bool = y == pos_cat
     else:
@@ -20,7 +20,7 @@ def bin_class_dev(p_hat, y, pos_cat, tiny=1e-32):
     return - 2 * (y_bool * log(p_hat + tiny) + (1 - y) * log(1 - p_hat + tiny)).mean()
 
 
-def bin_classif_eval_hard_pred(hard_predictions, actuals, pos_cat):
+def bin_classif_eval_hard_pred(hard_predictions, actuals, pos_cat=None):
 
     if hard_predictions.dtype == 'category':
         hard_predictions_bool = hard_predictions == pos_cat
@@ -59,10 +59,10 @@ def bin_classif_eval_hard_pred(hard_predictions, actuals, pos_cat):
         f1_score=f1_score)
 
 
-def bin_classif_eval(predictions, actuals, pos_cat, thresholds=.5):
+def bin_classif_eval(predictions, actuals, pos_cat=None, thresholds=.5):
 
-    if predictions.dtype in ('category', 'int', 'int64', 'bool'):
-        return bin_classif_eval_hard_pred(predictions, actuals, pos_cat)
+    if (predictions.dtype == 'category') or isinstance(predictions, ('int', 'int64', 'bool')):
+        return bin_classif_eval_hard_pred(predictions, actuals, pos_cat=pos_cat)
 
     if isinstance(thresholds, (float, int)):
 
@@ -85,6 +85,6 @@ def bin_classif_eval(predictions, actuals, pos_cat, thresholds=.5):
 
         for i in range(len(thresholds)):
             metrics.ix[i, column_names] = bin_classif_eval(
-                predictions, actuals, thresholds=thresholds[i])
+                predictions, actuals, pos_cat=pos_cat, thresholds=thresholds[i])
 
         return metrics
