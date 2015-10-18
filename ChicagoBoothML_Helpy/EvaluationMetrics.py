@@ -72,6 +72,7 @@ def bin_classif_eval(predictions, actuals, pos_cat=None, thresholds=.5):
     else:
 
         metrics = DataFrame(dict(threshold=thresholds))
+        print(metrics)
         column_names = [
             'accuracy',
             'recall',
