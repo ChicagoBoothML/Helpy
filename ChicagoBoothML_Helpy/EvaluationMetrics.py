@@ -64,13 +64,10 @@ def bin_classif_eval(predictions, actuals, pos_cat=None, thresholds=.5):
         return bin_classif_eval_hard_pred(predictions, actuals, pos_cat=pos_cat)
 
     if isinstance(thresholds, (float, int)):
-
         hard_predictions = predictions >= thresholds
         metrics = bin_classif_eval_hard_pred(hard_predictions, actuals, pos_cat=pos_cat)
         metrics['deviance'] = bin_class_dev(predictions, actuals, pos_cat=pos_cat)
-
     else:
-
         metrics = DataFrame(dict(threshold=thresholds))
       #  metrics['accuracy'] = 0.
       #  metrics['recall'] = 0.
