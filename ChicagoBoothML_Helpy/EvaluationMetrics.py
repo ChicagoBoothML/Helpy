@@ -78,16 +78,16 @@ def bin_classif_eval(predictions, actuals, pos_cat=None, thresholds=.5):
         metrics['precision'] = 0.
         metrics['f1_score'] = 0.
         metrics['deviance'] = 0.
-        print(metrics)
+       # print(metrics)
 
-        for i in range(len(thresholds)):
+      #  for i in range(len(thresholds)):
 
-            m = bin_classif_eval(predictions, actuals, pos_cat=pos_cat, thresholds=thresholds[i])
-            metrics.ix[i, 'accuracy'] = m['accuracy']
-            metrics.ix[i, 'recall'] = m['recall']
-            metrics.ix[i, 'specificity'] = m['specificity']
-            metrics.ix[i, 'precision'] = m['precision']
-            metrics.ix[i, 'f1_score'] = m['f1_score']
-            metrics.ix[i, 'deviance'] = m['deviance']
+       #     m = bin_classif_eval(predictions, actuals, pos_cat=pos_cat, thresholds=thresholds[i])
+       #     metrics.ix[i, 'accuracy'] = m['accuracy']
+       #     metrics.ix[i, 'recall'] = m['recall']
+       #     metrics.ix[i, 'specificity'] = m['specificity']
+       #     metrics.ix[i, 'precision'] = m['precision']
+       #     metrics.ix[i, 'f1_score'] = m['f1_score']
+       #     metrics.ix[i, 'deviance'] = m['deviance']
 
     return metrics
