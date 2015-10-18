@@ -68,7 +68,6 @@ def bin_classif_eval(predictions, actuals, pos_cat=None, thresholds=.5):
         hard_predictions = predictions >= thresholds
         metrics = bin_classif_eval_hard_pred(hard_predictions, actuals, pos_cat=pos_cat)
         metrics['deviance'] = bin_class_dev(predictions, actuals, pos_cat=pos_cat)
-        return metrics
 
     else:
 
@@ -87,4 +86,4 @@ def bin_classif_eval(predictions, actuals, pos_cat=None, thresholds=.5):
             metrics.ix[i, column_names] =\
                 m['accuracy'], m['recall'], m['specificity'], m['precision'], m['f1_score'], m['deviance']
 
-        return metrics
+    return metrics
