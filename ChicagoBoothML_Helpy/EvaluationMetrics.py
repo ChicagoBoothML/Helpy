@@ -72,12 +72,12 @@ def bin_classif_eval(predictions, actuals, pos_cat=None, thresholds=.5):
     else:
 
         metrics = DataFrame(dict(threshold=thresholds))
-        metrics['accuracy'] = 0.
-        metrics['recall'] = 0.
-        metrics['specificity'] = 0.
-        metrics['precision'] = 0.
-        metrics['f1_score'] = 0.
-        metrics['deviance'] = 0.
+      #  metrics['accuracy'] = 0.
+      #  metrics['recall'] = 0.
+      #  metrics['specificity'] = 0.
+      #  metrics['precision'] = 0.
+      #  metrics['f1_score'] = 0.
+      #  metrics['deviance'] = 0.
        # print(metrics)
 
       #  for i in range(len(thresholds)):
