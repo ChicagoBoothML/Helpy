@@ -1,5 +1,4 @@
 from __future__ import division
-from collections import OrderedDict
 from numpy import log, sqrt
 from pandas import DataFrame
 
@@ -13,21 +12,21 @@ def rmse(y_hat, y):
 
 
 def bin_class_dev(p_hat, y, pos_cat=None, tiny=1e-32):
-    if y.dtype == 'category':
+    if hasattr(y, 'cat'):
         y_bool = y == pos_cat
     else:
         y_bool = y.astype(bool)
-    return - 2 * (y_bool * log(p_hat + tiny) + (1 - y) * log(1 - p_hat + tiny)).mean()
+    return - 2 * (y_bool * log(p_hat + tiny) + (1 - y_bool) * log(1 - p_hat + tiny)).mean()
 
 
 def bin_classif_eval_hard_pred(hard_predictions, actuals, pos_cat=None):
 
-    if hard_predictions.dtype == 'category':
+    if hasattr(hard_predictions, 'cat'):
         hard_predictions_bool = hard_predictions == pos_cat
     else:
         hard_predictions_bool = hard_predictions.astype(bool)
 
-    if actuals.dtype == 'category':
+    if hasattr(actuals, 'cat'):
         actuals_bool = actuals == pos_cat
     else:
         actuals_bool = actuals.astype(bool)
@@ -40,10 +39,10 @@ def bin_classif_eval_hard_pred(hard_predictions, actuals, pos_cat=None):
     nb_neg = sum(opposite_actuals_bool)
     nb_pred_pos = sum(hard_predictions_bool)
     nb_pred_neg = sum(opposite_hard_predictions_bool)
-    nb_true_pos = sum(hard_predictions_bool * actuals_bool)
-    nb_true_neg = sum(opposite_hard_predictions_bool * opposite_actuals_bool)
-    nb_false_pos = sum(hard_predictions_bool * opposite_actuals_bool)
-    nb_false_neg = sum(opposite_hard_predictions_bool * actuals_bool)
+    nb_true_pos = sum(hard_predictions_bool & actuals_bool)
+    nb_true_neg = sum(opposite_hard_predictions_bool & opposite_actuals_bool)
+    nb_false_pos = sum(hard_predictions_bool & opposite_actuals_bool)
+    nb_false_neg = sum(opposite_hard_predictions_bool & actuals_bool)
 
     accuracy = (nb_true_pos + nb_true_neg) / nb_samples
     recall = nb_true_pos / nb_pos
@@ -51,7 +50,7 @@ def bin_classif_eval_hard_pred(hard_predictions, actuals, pos_cat=None):
     precision = nb_true_pos / nb_pred_pos
     f1_score = (2 * precision * recall) / (precision + recall)
 
-    return OrderedDict(
+    return dict(
         accuracy=accuracy,
         recall=recall,
         specificity=specificity,
@@ -61,14 +60,14 @@ def bin_classif_eval_hard_pred(hard_predictions, actuals, pos_cat=None):
 
 def bin_classif_eval(predictions, actuals, pos_cat=None, thresholds=.5):
 
-    if (predictions.dtype == 'category') or isinstance(predictions, ('int', 'int64', 'bool')):
+    if hasattr(predictions, 'cat') or (predictions.dtype in ('bool', 'int')):
         return bin_classif_eval_hard_pred(predictions, actuals, pos_cat=pos_cat)
 
     if isinstance(thresholds, (float, int)):
 
         hard_predictions = predictions >= thresholds
-        metrics = bin_classif_eval_hard_pred(hard_predictions, actuals, pos_cat)
-        metrics['deviance'] = bin_class_dev(predictions, actuals, pos_cat)
+        metrics = bin_classif_eval_hard_pred(hard_predictions, actuals, pos_cat=pos_cat)
+        metrics['deviance'] = bin_class_dev(predictions, actuals, pos_cat=pos_cat)
         return metrics
 
     else:
@@ -84,7 +83,8 @@ def bin_classif_eval(predictions, actuals, pos_cat=None, thresholds=.5):
         metrics[:, column_names] = 0.
 
         for i in range(len(thresholds)):
-            metrics.ix[i, column_names] = bin_classif_eval(
-                predictions, actuals, pos_cat=pos_cat, thresholds=thresholds[i])
+            m = bin_classif_eval(predictions, actuals, pos_cat=pos_cat, thresholds=thresholds[i])
+            metrics.ix[i, column_names] =\
+                m['accuracy'], m['recall'], m['specificity'], m['precision'], m['f1_score'], m['deviance']
 
         return metrics
