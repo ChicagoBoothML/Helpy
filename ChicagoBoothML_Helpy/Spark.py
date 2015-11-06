@@ -2,7 +2,7 @@ from os import environ
 from sys import exit, path
 
 
-def import_pyspark(spark_home='/Applications/spark-1.5.0'):
+def import_pyspark(spark_home='/Applications/spark-1.5.1'):
     environ['SPARK_HOME'] = spark_home
     path.append(spark_home + '/python')
     try:
