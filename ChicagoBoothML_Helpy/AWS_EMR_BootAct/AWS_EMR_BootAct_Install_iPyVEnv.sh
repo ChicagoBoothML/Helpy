@@ -15,9 +15,10 @@ export SPARK_HOME="/usr/lib/spark"
 # create & enter iPython Virtual Environment
 cd /home/hadoop
 sudo pip-2.7 install --upgrade VirtualEnv
-/usr/local/bin/virtualenv -p /usr/bin/python2.7 iPyVEnv
-cd iPyVEnv
-source bin/activate
+mkdir iPy
+cd iPy
+/usr/local/bin/virtualenv -p /usr/bin/python2.7 venv
+source venv/bin/activate
 
 # install iPython & other Python packages
 pip install --upgrade FindSpark
