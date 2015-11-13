@@ -9,9 +9,6 @@ sudo ln -s /usr/bin/python2.7 /usr/bin/python
 if grep isMaster /mnt/var/lib/info/instance.json | grep true;
 then
 
-# set SPARK_HOME environment variable
-export SPARK_HOME="/usr/lib/spark"
-
 # create & enter iPython Virtual Environment
 cd /home/hadoop
 sudo pip-2.7 install --upgrade VirtualEnv
@@ -20,11 +17,19 @@ cd iPy
 /usr/local/bin/virtualenv -p /usr/bin/python2.7 venv
 source venv/bin/activate
 
+# set SPARK_HOME environment variable
+export SPARK_HOME="/usr/lib/spark"
+
+# download PostgreSQL JDBC driver
+curl https://jdbc.postgresql.org/download/postgresql-9.4-1205.jdbc42.jar --output PostgreSQL_JDBC.jar
+
 # install iPython & other Python packages
 pip install --upgrade FindSpark
 pip install --upgrade GGPlot
 pip install --upgrade Py4J
+pip install --upgrade Python-iGraph
 pip install --upgrade Sparkit-Learn
+pip install --upgrade URLLib3
 pip install --upgrade "ipython[all]"
 
 # create iPython profile
