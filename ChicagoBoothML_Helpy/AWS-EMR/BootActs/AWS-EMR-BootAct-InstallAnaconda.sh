@@ -48,6 +48,8 @@ sudo ln -s /Anaconda/bin/conda /usr/bin/conda
 sudo ln -s /Anaconda/bin/pip /usr/bin/pip
 sudo ln -s /Anaconda/bin/ipython /usr/bin/ipython
 
+# install Python packages
+sudo pip install --upgrade FindSpark
 
 # create iPython profile
 ipython profile create default
