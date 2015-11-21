@@ -26,7 +26,7 @@ sudo yum -y install git
 
 # install LinuxBrew
 git clone https://github.com/Homebrew/linuxbrew.git ~/.linuxbrew
-export PATH="$HOME/.linuxbrew/bin:$HOME/.linuxbrew/sbin:$PATH"
+export PATH="~/.linuxbrew/bin:~/.linuxbrew/sbin:$PATH"
 export HOMEBREW_TEMP=/var/tmp
 sudo chmod +t /var/tmp
 sudo ln -s $(which gcc) `brew --prefix`/bin/gcc-$(gcc -dumpversion |cut -d. -f1,2)
