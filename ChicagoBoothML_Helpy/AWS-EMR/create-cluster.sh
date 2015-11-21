@@ -13,7 +13,8 @@ aws s3 cp \
     --no-verify-ssl
 
 
-# bid for most basic AWS EMR cluster at cheapest price ($0.001 / instance / hour)
+# bid for basic AWS EMR cluster with 1 Master, 2 Core & 2 Task nodes
+# at cheapest price ($0.001 / instance / hour)
 aws emr create-cluster \
     --name \
         AWS-EMR-Cluster \
@@ -22,6 +23,7 @@ aws emr create-cluster \
     --instance-groups \
         InstanceGroupType=MASTER,InstanceCount=1,InstanceType=m1.medium,BidPrice=0.001 \
         InstanceGroupType=CORE,InstanceCount=2,InstanceType=m1.medium,BidPrice=0.001 \
+        InstanceGroupType=TASK,InstanceCount=2,InstanceType=m1.medium,BidPrice=0.001 \
     --no-auto-terminate \
     --use-default-roles \
     --log-uri \
