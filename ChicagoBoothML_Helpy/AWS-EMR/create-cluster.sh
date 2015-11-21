@@ -1,29 +1,40 @@
 #!/bin/sh
 
 
-# parse -s option to get S3 Bucket Name to which to upload the Bootstrap Action script(s)
-getopts s: OPTION
+# parse command-line options
+while getopts "p:s:" opt
+do
+    case $opt in
+        p)
+            PRICE=$OPTARG
+            ;;
+        s)
+            S3_BUCKET_NAME=$OPTARG
+            ;;
+    esac
+done
 
 
-# upload Bootstrap Action script(s) to S3 bucket
+# upload AWS EMR Bootstrap Action script(s) to S3 Bucket
+echo "Uploading AWS EMR Bootstrap Action script(s) to s3://$S3_BUCKET_NAME (which must be in region us-west-1)..."
 aws s3 cp \
     BootActs/AWS-EMR-BootAct-InstallAnaconda.sh \
-    s3://$OPTARG/AWS-EMR-BootAct-InstallAnaconda.sh \
+    s3://$S3_BUCKET_NAME/AWS-EMR-BootAct-InstallAnaconda.sh \
     --region us-west-1 \
     --no-verify-ssl
+echo "done!"
 
 
-# bid for basic AWS EMR cluster with 1 Master, 2 Core & 2 Task nodes
-# at cheapest price ($0.001 / instance / hour)
+echo "Bidding for AWS EMR cluster with 1 Master, 2 Core & 2 Task nodes at $PRICE / instance / hour..."
 aws emr create-cluster \
     --name \
         AWS-EMR-Cluster \
     --release-label \
         emr-4.2.0 \
     --instance-groups \
-        InstanceGroupType=MASTER,InstanceCount=1,InstanceType=m1.medium,BidPrice=0.001 \
-        InstanceGroupType=CORE,InstanceCount=2,InstanceType=m1.medium,BidPrice=0.001 \
-        InstanceGroupType=TASK,InstanceCount=2,InstanceType=m1.medium,BidPrice=0.001 \
+        InstanceGroupType=MASTER,InstanceCount=1,InstanceType=m1.medium,BidPrice=$PRICE \
+        InstanceGroupType=CORE,InstanceCount=2,InstanceType=m1.medium,BidPrice=$PRICE \
+        InstanceGroupType=TASK,InstanceCount=2,InstanceType=m1.medium,BidPrice=$PRICE \
     --no-auto-terminate \
     --use-default-roles \
     --log-uri \
@@ -41,8 +52,5 @@ aws emr create-cluster \
         Name=Pig \
         Name=Spark \
     --bootstrap-actions \
-        Path=s3://$OPTARG/AWS_EMR_BootAct_InstallAnaconda.sh,Name=InstallAnaconda
-
-
-# connect to AWS EMR Cluster's iPython Notebook via a pipe
-# ssh -o ServerAliveInterval=10 -i keypair.pem -N -L 8102:<Cluster Public DNS>:8102 hadoop@<Cluster Public DNS>
+        Path=s3://$S3_BUCKET_NAME/AWS_EMR_BootAct_InstallAnaconda.sh,Name=InstallAnaconda
+echo "Please check your AWS EMR Console for your cluster's status."
