@@ -13,4 +13,4 @@ done
 
 
 # connect to AWS EMR Cluster's iPython Notebook via a pipe
-ssh -o ServerAliveInterval=10 -i keypair.pem -N -L 8102:$AWS_EMR_CLUSTER_PUBLIC_DNS:8102 hadoop@$AWS_EMR_CLUSTER_PUBLIC_DNS
+ssh -o ServerAliveInterval=10 -i keypair.pem -N -L 8133:$AWS_EMR_CLUSTER_PUBLIC_DNS:8133 hadoop@$AWS_EMR_CLUSTER_PUBLIC_DNS
