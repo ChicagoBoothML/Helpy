@@ -31,10 +31,10 @@ aws s3 cp \
 echo "done!"
 
 
-echo "Bidding for AWS EMR cluster with 1 Master + $NB_WORKER_NODES Core nodes at $PRICE / instance / hour..."
+echo "Bidding for AWS EMR cluster with 1 Master + $NB_WORKER_NODES Worker $INSTANCE_TYPE nodes at \$$PRICE/node/hr..."
 aws emr create-cluster \
     --name \
-        "1+$NB_WORKER_NODES x $INSTANCE_TYPE @ $PRICE/inst/hr" \
+        "1+$NB_WORKER_NODES x $INSTANCE_TYPE @ \$$PRICE/node/hr" \
     --release-label \
         emr-4.2.0 \
     --instance-groups \
