@@ -17,6 +17,8 @@ sudo yum -y install gcc
 sudo yum -y install gcc-c++
 sudo yum -y install gcc-gfortran
 sudo yum -y install git
+sudo yum -y install ncurses-devel
+sudo yum -y install patch
 
 
 # install LinuxBrew
@@ -31,31 +33,27 @@ sudo ln -s $(which gfortran) `brew --prefix`/bin/gfortran-$(gfortran -dumpversio
 
 # make Python 2.7 default Python
 sudo rm /usr/bin/python
-sudo rm /usr/bin/python2
 sudo ln -s /usr/bin/python2.7 /usr/bin/python
-sudo ln -s /usr/bin/python2.7 /usr/bin/python2
 
 
 # install Python 2.7 packages
-sudo pip-2.7 install --upgrade FindSpark
-sudo pip-2.7 install --upgrade Pandas
-sudo pip-2.7 install --upgrade SciKit-Learn
+
+# install complete/updated SciPy stack (excl. Nose)
+sudo pip-2.7 install --upgrade NumPy
 sudo pip-2.7 install --upgrade SciPy
+sudo pip-2.7 install --upgrade MatPlotLib
+sudo pip-2.7 install --upgrade Pandas
+sudo pip-2.7 install --upgrade SymPy
 sudo pip-2.7 install --upgrade "ipython[all]"
 
+# install SkiKit-Learn
+sudo pip-2.7 install --upgrade SciKit-Learn
 
-# launch iPython Notebook server from Master node
-if grep isMaster /mnt/var/lib/info/instance.json | grep true
-then
+# install GGPlot
+sudo pip-2.7 install --upgrade GGPlot
 
-    # create iPython profile
-    ipython profile create default
-    echo "c = get_config()" > /home/hadoop/.ipython/profile_default/ipython_notebook_config.py
-    echo "c.NotebookApp.ip = '*'" >> /home/hadoop/.ipython/profile_default/ipython_notebook_config.py
-    echo "c.NotebookApp.open_browser = False" >> /home/hadoop/.ipython/profile_default/ipython_notebook_config.py
-    echo "c.NotebookApp.port = 8133" >> /home/hadoop/.ipython/profile_default/ipython_notebook_config.py
+# install Theano
+sudo pip-2.7 install --upgrade Theano
 
-    # launch iPython Notebook server
-    nohup ipython notebook --no-browser > /mnt/var/log/python_notebook.log &
-
-fi
+# install FindSpark
+sudo pip-2.7 install --upgrade FindSpark

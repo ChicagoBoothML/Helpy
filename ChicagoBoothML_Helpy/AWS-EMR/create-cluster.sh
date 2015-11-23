@@ -22,10 +22,15 @@ done
 
 
 # upload AWS EMR Bootstrap Action script(s) to S3 Bucket
-echo "Uploading AWS EMR Bootstrap Action script(s) to s3://$S3_BUCKET_NAME (which must be in region us-west-1)..."
+echo "Uploading AWS EMR Bootstrap Action & Step script(s) to s3://$S3_BUCKET_NAME (which must be in region us-west-1)..."
 aws s3 cp \
     BootActs/AWS-EMR-BootAct-InstallPythonPackages.sh \
     s3://$S3_BUCKET_NAME/AWS-EMR-BootAct-InstallPythonPackages.sh \
+    --region us-west-1 \
+    --no-verify-ssl
+aws s3 cp \
+    Steps/AWS-EMR-Step-LaunchIPython.sh \
+    s3://$S3_BUCKET_NAME/AWS-EMR-Step-LaunchIPython.sh \
     --region us-west-1 \
     --no-verify-ssl
 echo "done!"
@@ -34,7 +39,7 @@ echo "done!"
 echo "Bidding for AWS EMR cluster with 1 Master + $NB_WORKER_NODES Worker $INSTANCE_TYPE nodes at \$$PRICE/node/hr..."
 aws emr create-cluster \
     --name \
-        "1+$NB_WORKER_NODES x $INSTANCE_TYPE @ \$$PRICE/node/hr" \
+        "(1 + $NB_WORKER_NODES) x $INSTANCE_TYPE @ \$$PRICE/node/hr" \
     --release-label \
         emr-4.2.0 \
     --instance-groups \
@@ -52,5 +57,6 @@ aws emr create-cluster \
     --applications \
         Name=Spark \
     --bootstrap-actions \
-        Path=s3://$S3_BUCKET_NAME/AWS-EMR-BootAct-InstallPythonPackages.sh,Name=InstallPythonPackages
+        Path=s3://$S3_BUCKET_NAME/AWS-EMR-BootAct-InstallPythonPackages.sh,Name=InstallPythonPackages \
+    --steps Type=CUSTOM_JAR,Name=ScriptRunnerJAR,ActionOnFailure=CONTINUE,Jar=s3://elasticmapreduce/libs/script-runner/script-runner.jar,Args=["s3://mbalearnstocode-spark/AWS-EMR-Step-LaunchIPython.sh"]
 echo "Please check your AWS EMR Console for your cluster's status."
