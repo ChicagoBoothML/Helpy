@@ -57,3 +57,18 @@ sudo pip-2.7 install --upgrade Theano
 
 # install FindSpark
 sudo pip-2.7 install --upgrade FindSpark
+
+
+# launch iPython from Master node
+if grep isMaster /mnt/var/lib/info/instance.json | grep true
+then
+    # create iPython profile
+    /usr/local/bin/ipython profile create default
+    echo "c = get_config()"                    > /home/hadoop/.ipython/profile_default/ipython_notebook_config.py
+    echo "c.NotebookApp.ip = '*'"             >> /home/hadoop/.ipython/profile_default/ipython_notebook_config.py
+    echo "c.NotebookApp.open_browser = False" >> /home/hadoop/.ipython/profile_default/ipython_notebook_config.py
+    echo "c.NotebookApp.port = 8133"          >> /home/hadoop/.ipython/profile_default/ipython_notebook_config.py
+
+    # launch iPython server
+    nohup /usr/local/bin/ipython notebook --no-browser > /mnt/var/log/python_notebook.log &
+fi
