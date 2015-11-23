@@ -1,5 +1,6 @@
 #!/bin/sh
 
+PORT=8133
 
 # parse command-line options
 while getopts "d:" opt
@@ -11,6 +12,6 @@ do
     esac
 done
 
-
 # connect to AWS EMR Cluster's iPython Notebook via a pipe
-ssh -o ServerAliveInterval=10 -i keypair.pem -N -L 8133:$AWS_EMR_CLUSTER_PUBLIC_DNS:8133 hadoop@$AWS_EMR_CLUSTER_PUBLIC_DNS
+echo "Please open *** localhost:$PORT *** on your web browser"
+ssh -o ServerAliveInterval=10 -i keypair.pem -N -L $PORT:$AWS_EMR_CLUSTER_PUBLIC_DNS:$PORT hadoop@$AWS_EMR_CLUSTER_PUBLIC_DNS
