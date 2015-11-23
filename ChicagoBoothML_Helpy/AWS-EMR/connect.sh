@@ -13,5 +13,5 @@ do
 done
 
 # connect to AWS EMR Cluster's iPython Notebook via a pipe
-echo "Please open *** localhost:$PORT *** on your web browser"
+echo "Please open LOCALHOST:$PORT on your web browser"
 ssh -o ServerAliveInterval=10 -i keypair.pem -N -L $PORT:$AWS_EMR_CLUSTER_PUBLIC_DNS:$PORT hadoop@$AWS_EMR_CLUSTER_PUBLIC_DNS
