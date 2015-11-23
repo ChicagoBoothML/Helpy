@@ -33,7 +33,9 @@ sudo ln -s $(which gfortran) `brew --prefix`/bin/gfortran-$(gfortran -dumpversio
 
 # make Python 2.7 default Python
 sudo rm /usr/bin/python
+sudo rm /usr/bin/pip
 sudo ln -s /usr/bin/python2.7 /usr/bin/python
+sudo ln -s /usr/bin/pip-2.7 /usr/bin/pip
 
 
 # install Python 2.7 packages
