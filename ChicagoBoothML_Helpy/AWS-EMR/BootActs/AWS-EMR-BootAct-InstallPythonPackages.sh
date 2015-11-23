@@ -4,6 +4,10 @@
 set -x -e
 
 
+# return to Home folder
+cd ~
+
+
 # set SPARK_HOME environment variable
 export SPARK_HOME="/usr/lib/spark"
 
@@ -41,24 +45,34 @@ sudo ln -s /usr/bin/pip-2.7 /usr/bin/pip
 # install Python 2.7 packages
 
 # install complete/updated SciPy stack (excl. Nose)
-sudo pip-2.7 install --upgrade NumPy
-sudo pip-2.7 install --upgrade SciPy
-sudo pip-2.7 install --upgrade MatPlotLib
-sudo pip-2.7 install --upgrade Pandas
-sudo pip-2.7 install --upgrade SymPy
-sudo pip-2.7 install --upgrade "ipython[all]"
+sudo pip install --upgrade NumPy
+sudo pip install --upgrade SciPy
+sudo pip install --upgrade MatPlotLib
+sudo pip install --upgrade Pandas
+sudo pip install --upgrade SymPy
+sudo pip install --upgrade "ipython[all]"
 
 # install SkiKit-Learn
-sudo pip-2.7 install --upgrade SciKit-Learn
+sudo pip install --upgrade SciKit-Learn
 
 # install GGPlot
-sudo pip-2.7 install --upgrade GGPlot
+sudo pip install --upgrade GGPlot
 
 # install Theano
-sudo pip-2.7 install --upgrade Theano
+sudo pip install --upgrade Theano
 
 # install FindSpark
-sudo pip-2.7 install --upgrade FindSpark
+sudo pip install --upgrade FindSpark
+
+# install Geos & Basemap
+git clone https://github.com/matplotlib/basemap.git
+export GEOS_DIR=~/
+cd basemap/geos-*
+./configure --prefix=$GEOS_DIR
+make
+sudo make install
+cd ..
+sudo python setup.py install
 
 
 # launch iPython from Master node
