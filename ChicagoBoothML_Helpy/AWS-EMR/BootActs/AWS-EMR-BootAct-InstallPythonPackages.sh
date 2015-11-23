@@ -63,13 +63,13 @@ sudo pip install --upgrade Theano
 
 # install Geos & Basemap
 git clone https://github.com/matplotlib/basemap.git
-export GEOS_DIR=~/
 cd basemap/geos-*
-./configure --prefix=$GEOS_DIR
+./configure --prefix=/usr/local
 make
 sudo make install
 cd ..
 sudo python setup.py install
+cd ~
 
 # install FindSpark
 sudo pip install --upgrade FindSpark
