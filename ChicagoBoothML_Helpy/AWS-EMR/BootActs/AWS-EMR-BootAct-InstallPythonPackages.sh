@@ -61,9 +61,6 @@ sudo pip install --upgrade GGPlot
 # install Theano
 sudo pip install --upgrade Theano
 
-# install FindSpark
-sudo pip install --upgrade FindSpark
-
 # install Geos & Basemap
 git clone https://github.com/matplotlib/basemap.git
 export GEOS_DIR=~/
@@ -73,6 +70,9 @@ make
 sudo make install
 cd ..
 sudo python setup.py install
+
+# install FindSpark
+sudo pip install --upgrade FindSpark
 
 
 # launch iPython from Master node
