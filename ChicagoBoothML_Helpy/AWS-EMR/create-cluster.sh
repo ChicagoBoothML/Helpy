@@ -22,7 +22,7 @@ done
 
 
 # upload AWS EMR Bootstrap Action script(s) to S3 Bucket
-echo "Uploading AWS EMR Bootstrap Action & Step script(s) to s3://$S3_BUCKET_NAME (which must be in region us-west-1)..."
+echo "Uploading AWS EMR Bootstrap Action & Step scripts to s3://$S3_BUCKET_NAME (which must be in region us-west-1)..."
 aws s3 cp \
     BootActs/AWS-EMR-BootAct-InstallPythonPackages.sh \
     s3://$S3_BUCKET_NAME/AWS-EMR-BootAct-InstallPythonPackages.sh \
