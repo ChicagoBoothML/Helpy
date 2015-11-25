@@ -69,7 +69,13 @@ make
 sudo make install
 cd ..
 sudo python setup.py install
-cd ~
+cd ..
+sudo rm -r basemap
+
+# Install Cairo & iGraph
+sudo yum -y install cairo-devel
+sudo pip install --upgrade Python-iGraph
+
 
 # install FindSpark
 sudo pip install --upgrade FindSpark
