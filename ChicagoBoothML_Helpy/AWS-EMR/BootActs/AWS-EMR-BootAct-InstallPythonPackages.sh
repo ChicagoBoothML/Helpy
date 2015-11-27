@@ -20,9 +20,16 @@ curl https://jdbc.postgresql.org/download/postgresql-9.4-1205.jdbc42.jar --outpu
 echo "[fedora]"                                                                               > ~/fedora.repo
 echo "name=fedora"                                                                           >> ~/fedora.repo
 echo "mirrorlist=http://mirrors.fedoraproject.org/mirrorlist?repo=fedora-23&arch=\$basearch" >> ~/fedora.repo
-echo "enabled=1"                                                                             >> ~/fedora.repo
+echo "enabled=0"                                                                             >> ~/fedora.repo
 echo "gpgcheck=0"                                                                            >> ~/fedora.repo
 sudo mv ~/fedora.repo /etc/yum.repos.d/
+
+sudo yum update -y
+
+# cd /etc/yum.repos.d
+# sudo wget http://linuxsoft.cern.ch/cern/scl/slc6-scl.repo
+# sudo yum -y --nogpgcheck install devtoolset-3-gcc
+# sudo yum -y --nogpgcheck install devtoolset-3-gcc-c++
 
 sudo yum install -y gcc
 sudo yum install -y gcc-c++
