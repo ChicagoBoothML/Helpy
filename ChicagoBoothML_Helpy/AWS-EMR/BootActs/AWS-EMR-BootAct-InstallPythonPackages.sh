@@ -62,16 +62,19 @@ sudo ln -s /usr/bin/pip-2.7 /usr/bin/pip
 
 # install Python packages
 
+# Py4J for Spark
+sudo pip install --upgrade Py4J
+
 # Cython
 sudo pip install --upgrade Cython
 
 # complete/updated SciPy stack (excl. Nose)
-sudo pip install --upgrade NumPy
-sudo pip install --upgrade SciPy
+sudo pip install --upgrade iPython[all]
 sudo pip install --upgrade MatPlotLib
+sudo pip install --upgrade NumPy
 sudo pip install --upgrade Pandas
+sudo pip install --upgrade SciPy
 sudo pip install --upgrade SymPy
-sudo pip install --upgrade "ipython[all]"
 
 # certain popular SkiKits: http://scikits.appspot.com/scikits
 sudo pip install --upgrade SciKit-Image
@@ -100,7 +103,7 @@ sudo pip install --upgrade Keras
 sudo pip install --upgrade NeuroLab
 sudo pip install --upgrade SciKit-NeuralNetwork
 
-# install Geos, Proj, Basemap & other geospatial libraries
+# install Geos, Proj, Basemap, Google Maps API & other geospatial libraries
 git clone https://github.com/matplotlib/basemap.git
 cd basemap/geos-*
 export GEOS_DIR=/usr/local
@@ -124,6 +127,8 @@ cd ..
 sudo rm -r proj-4.8.0
 
 sudo pip install --upgrade Descartes
+sudo pip install --upgrade Google-API-Python-Client
+sudo pip install --upgrade GoogleMaps
 sudo pip install --upgrade PyProj
 sudo pip install --upgrade PySAL
 
@@ -132,7 +137,7 @@ sudo pip install --upgrade PySAL
 # sudo pip install --upgrade Cartopy
 # sudo pip install --upgrade Kartograph
 
-# network analysis tools: APGL, Graph-Tool, GraphViz, NetworkX, Python-iGraph & SNAPPy
+# network analysis tools: APGL, Cairo, Graph-Tool, GraphViz, NetworkX, Python-iGraph & SNAPPy
 sudo pip install --upgrade APGL
 
 # (we skip installing Graph-Tool because it requires GCC C++ 14 compiler)
@@ -143,6 +148,16 @@ sudo pip install --upgrade APGL
 # ./configure
 # make
 # sudo make install
+
+wget http://cairographics.org/releases/py2cairo-1.10.0.tar.bz2
+tar jxf py2cairo-1.10.0.tar.bz2
+sudo rm -r py2cairo-1.10.0.tar.bz2
+cd py2cairo-1.10.0
+./waf configure
+./waf build
+sudo ./waf install
+cd ..
+sudo rm -r py2cairo-1.10.0
 
 sudo pip install --upgrade GraphViz
 sudo pip install --upgrade NetworkX
