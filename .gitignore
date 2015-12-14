@@ -62,3 +62,7 @@ target/
 
 # AWS Key Pairs
 *.pem
+
+# Icon files
+Icon^M^M
+Icon?
