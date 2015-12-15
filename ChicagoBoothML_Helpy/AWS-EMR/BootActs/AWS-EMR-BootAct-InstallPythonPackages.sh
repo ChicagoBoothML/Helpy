@@ -167,6 +167,9 @@ sudo pip install --upgrade SNAPPy
 # FindSpark
 sudo pip install --upgrade FindSpark
 
+# PySpark_CSV
+wget https://raw.githubusercontent.com/seahboonsiew/pyspark-csv/master/pyspark_csv.py
+
 
 # launch iPython from Master node
 if grep isMaster /mnt/var/lib/info/instance.json | grep true
