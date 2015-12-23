@@ -2,23 +2,30 @@
 
 
 # parse command-line options
-while getopts "s:w:t:p:" opt
+while getopts "b:n:t:m:w:" opt
 do
     case $opt in
-        s)
+        b)
             S3_BUCKET_NAME=$OPTARG
             ;;
-        w)
+        n)
             NB_WORKER_NODES=$OPTARG
             ;;
         t)
-            INSTANCE_TYPE=$OPTARG
+            WORKER_INSTANCE_TYPE=$OPTARG
             ;;
-        p)
-            PRICE=$OPTARG
+        m)
+            MASTER_INSTANCE_PRICE=$OPTARG
+            ;;
+        w)
+            WORKER_INSTANCE_PRICE=$OPTARG
             ;;
     esac
 done
+
+
+# other parameters
+MASTER_INSTANCE_TYPE=g2.2xlarge
 
 
 # upload AWS EMR Bootstrap Action script(s) to S3 Bucket
@@ -31,15 +38,15 @@ aws s3 cp \
 echo "done!"
 
 
-echo "Bidding for AWS EMR cluster with 1 Master + $NB_WORKER_NODES Worker $INSTANCE_TYPE nodes at \$$PRICE/node/hr..."
+echo "Bidding for AWS EMR cluster with 1 x $MASTER_INSTANCE_TYPE Master @ \$$MASTER_INSTANCE_PRICE/node/hr + $NB_WORKER_NODES x $WORKER_INSTANCE_TYPE Workers @ \$$WORKER_INSTANCE_PRICE/node/hr..."
 aws emr create-cluster \
     --name \
-        "(1 + $NB_WORKER_NODES) x $INSTANCE_TYPE @ \$$PRICE/node/hr" \
+        "1 x $MASTER_INSTANCE_TYPE @ \$$MASTER_INSTANCE_PRICE/node/hr + $NB_WORKER_NODES x $WORKER_INSTANCE_TYPE @ \$$WORKER_INSTANCE_PRICE/node/hr" \
     --release-label \
         emr-4.2.0 \
     --instance-groups \
-        InstanceGroupType=MASTER,InstanceCount=1,InstanceType=$INSTANCE_TYPE,BidPrice=$PRICE \
-        InstanceGroupType=CORE,InstanceCount=$NB_WORKER_NODES,InstanceType=$INSTANCE_TYPE,BidPrice=$PRICE \
+        InstanceGroupType=MASTER,InstanceCount=1,InstanceType=$MASTER_INSTANCE_TYPE,BidPrice=$MASTER_INSTANCE_PRICE \
+        InstanceGroupType=CORE,InstanceCount=$NB_WORKER_NODES,InstanceType=$WORKER_INSTANCE_TYPE,BidPrice=$WORKER_INSTANCE_PRICE \
     --no-auto-terminate \
     --use-default-roles \
     --log-uri \

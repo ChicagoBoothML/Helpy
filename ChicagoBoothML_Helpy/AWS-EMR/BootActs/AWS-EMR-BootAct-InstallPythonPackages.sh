@@ -8,15 +8,11 @@ set -x -e
 cd ~
 
 
-# set SPARK_HOME environment variable
+# set environment variables
 export SPARK_HOME="/usr/lib/spark"
 
 
-# download PostgreSQL JDBC driver
-curl https://jdbc.postgresql.org/download/postgresql-9.4-1205.jdbc42.jar --output PostgreSQL_JDBC.jar
-
-
-# install dependencies
+# enable installation from Fedora repo
 echo "[fedora]"                                                                               > ~/fedora.repo
 echo "name=fedora"                                                                           >> ~/fedora.repo
 echo "mirrorlist=http://mirrors.fedoraproject.org/mirrorlist?repo=fedora-23&arch=\$basearch" >> ~/fedora.repo
@@ -24,23 +20,32 @@ echo "enabled=0"                                                                
 echo "gpgcheck=0"                                                                            >> ~/fedora.repo
 sudo mv ~/fedora.repo /etc/yum.repos.d/
 
+
+# update all packages
 sudo yum update -y
 
+
+# install essential Development Tools
+sudo yum groupinstall -y "Development tools"
+# which covers the following essentials:
+# sudo yum install -y gcc
+# sudo yum install -y gcc-c++
+# sudo yum install -y gcc-gfortran
+# sudo yum install -y git
+# sudo yum install -y patch
+
+# experimental installations of Fedora packages:
 # cd /etc/yum.repos.d
 # sudo wget http://linuxsoft.cern.ch/cern/scl/slc6-scl.repo
 # sudo yum -y --nogpgcheck install devtoolset-3-gcc
 # sudo yum -y --nogpgcheck install devtoolset-3-gcc-c++
 
-sudo yum install -y gcc
-sudo yum install -y gcc-c++
-sudo yum install -y gcc-gfortran
 
+# install certain other packages
 sudo yum install -y boost
 sudo yum install -y cairo-devel
-sudo yum install -y git
 sudo yum install -y libjpeg-devel
 sudo yum install -y ncurses-devel
-sudo yum install -y patch
 
 
 # install LinuxBrew
@@ -51,6 +56,18 @@ sudo chmod +t /var/tmp
 sudo ln -s $(which gcc) `brew --prefix`/bin/gcc-$(gcc -dumpversion |cut -d. -f1,2)
 sudo ln -s $(which g++) `brew --prefix`/bin/g++-$(g++ -dumpversion |cut -d. -f1,2)
 sudo ln -s $(which gfortran) `brew --prefix`/bin/gfortran-$(gfortran -dumpversion |cut -d. -f1,2)
+
+
+# install NVIDIA / CUDA drivers
+# (ref: http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using_cluster_computing.html#install-nvidia-driver)
+# G2 Instances
+# Product Type: GRID
+# Product Series: GRID Series
+# Product: GRID K520
+# Operating System: Linux 64-bit
+# Recommended/Beta: Recommended/Certified
+# wget http://us.download.nvidia.com/XFree86/Linux-x86_64/358.16/NVIDIA-Linux-x86_64-358.16.run
+# sudo sh NVIDIA-Linux-x86_64-358.16.run
 
 
 # make Python 2.7 default Python
@@ -169,6 +186,10 @@ sudo pip install --upgrade FindSpark
 
 # PySpark_CSV
 wget https://raw.githubusercontent.com/seahboonsiew/pyspark-csv/master/pyspark_csv.py
+
+
+# download PostgreSQL JDBC driver
+curl https://jdbc.postgresql.org/download/postgresql-9.4-1205.jdbc42.jar --output PostgreSQL_JDBC.jar
 
 
 # launch iPython from Master node
