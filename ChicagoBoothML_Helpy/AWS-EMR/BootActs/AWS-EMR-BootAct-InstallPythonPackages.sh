@@ -16,7 +16,7 @@ mkdir $CUDA_ROOT
 
 export TMPDIR=/mnt/tmp
 mkdir -p $TMPDIR
-#   sudo chmod +t $TMPDIR
+# sudo chmod +t $TMPDIR   not necessary for Homebrew below?
 
 export HOMEBREW_TEMP=$TMPDIR
 
@@ -152,7 +152,7 @@ sudo pip install --upgrade TimeSeries
 # advanced visualization tools: Bokeh, GGPlot, GNUPlot, MayaVi & Plotly
 sudo pip install --upgrade Bokeh
 sudo pip install --upgrade GGPlot
-#   sudo pip install --upgrade GNUPlot-Py --allow-external GNUPlot-Py --allow-unverified GNUPlot-Py
+# sudo pip install --upgrade GNUPlot-Py --allow-external GNUPlot-Py --allow-unverified GNUPlot-Py   skip: cannot find
 
 # brew install Expat
 # brew install MakeDepend
