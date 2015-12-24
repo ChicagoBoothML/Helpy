@@ -1,0 +1,16 @@
+#!/bin/sh
+
+[global]
+device = gpu
+force_device = False
+floatX = float32
+reoptimize_unpickled_function = False
+
+[cuda]
+root = /mnt/cuda-7.5/bin
+
+[nvcc]
+compiler_bindir = /usr/bin
+fastmath = True
+
+[blas]
