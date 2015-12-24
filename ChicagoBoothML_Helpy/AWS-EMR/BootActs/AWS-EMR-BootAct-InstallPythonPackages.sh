@@ -1,6 +1,7 @@
 #!/bin/bash
 
 
+# enable debugging & set strict error trap
 set -x -e
 
 
@@ -11,10 +12,13 @@ mkdir $HOME
 export CUDA_HOME=/mnt/cuda-7.5
 mkdir $CUDA_HOME
 
+export SPARK_HOME=/usr/lib/spark
+
 export TMPDIR=/mnt/tmp
 mkdir -p $TMPDIR
+#   sudo chmod +t $TMPDIR
 
-export SPARK_HOME=/usr/lib/spark
+export HOMEBREW_TEMP=$TMPDIR
 
 export KERNEL_RELEASE=$(uname -r)
 export KERNEL_SOURCE_PATH=/usr/src/kernels/$KERNEL_RELEASE
@@ -75,8 +79,6 @@ sudo yum install -y libjpeg-devel
 # install LinuxBrew
 git clone https://github.com/Homebrew/linuxbrew.git ~/.linuxbrew
 export PATH=~/.linuxbrew/bin:~/.linuxbrew/sbin:$PATH:/user/local/include
-export HOMEBREW_TEMP=$TMPDIR
-sudo chmod +t $TMPDIR
 sudo ln -s $(which gcc) `brew --prefix`/bin/gcc-$(gcc -dumpversion |cut -d. -f1,2)
 sudo ln -s $(which g++) `brew --prefix`/bin/g++-$(g++ -dumpversion |cut -d. -f1,2)
 sudo ln -s $(which gfortran) `brew --prefix`/bin/gfortran-$(gfortran -dumpversion |cut -d. -f1,2)
@@ -93,10 +95,14 @@ cd $TMPDIR
 # Product: GRID K520
 # Operating System: Linux 64-bit
 # Recommended/Beta: Recommended/Certified
-wget http://us.download.nvidia.com/XFree86/Linux-x86_64/358.16/NVIDIA-Linux-x86_64-358.16.run
+wget http://us.download.nvidia.com/XFree86/Linux-x86_64/358.16/NVIDIA-Linux-x86_64-358.16.
+# the following installation issues warnings that prompt non-zero exit codes;
+# hence we turn off strict error trap
+set +e
 sudo sh NVIDIA-Linux-x86_64-358.16.run --silent --kernel-source-path $KERNEL_SOURCE_PATH --tmpdir $TMPDIR
+set -e
 
-# install CUDA package (for Fedora)
+# install CUDA package
 wget http://developer.download.nvidia.com/compute/cuda/7.5/Prod/local_installers/cuda_7.5.18_linux.run
 sudo sh cuda_7.5.18_linux.run --silent --driver --toolkit --toolkitpath $CUDA_HOME --extract $TMPDIR --kernel-source-path $KERNEL_SOURCE_PATH --tmpdir $TMPDIR
 sudo sh cuda-linux64-rel-7.5.18-19867135.run --noprompt --prefix $CUDA_HOME --tmpdir $TMPDIR
