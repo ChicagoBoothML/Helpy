@@ -11,8 +11,8 @@ mkdir $HOME
 
 export SPARK_HOME=/usr/lib/spark
 
-export CUDA_HOME=/mnt/cuda-7.5
-mkdir $CUDA_HOME
+export CUDA_ROOT=/mnt/cuda-7.5
+mkdir $CUDA_ROOT
 
 export TMPDIR=/mnt/tmp
 mkdir -p $TMPDIR
@@ -104,11 +104,11 @@ set -e
 
 # install CUDA toolkit
 wget http://developer.download.nvidia.com/compute/cuda/7.5/Prod/local_installers/cuda_7.5.18_linux.run
-sudo sh cuda_7.5.18_linux.run --silent --driver --toolkit --toolkitpath $CUDA_HOME --extract $TMPDIR --kernel-source-path $KERNEL_SOURCE_PATH --tmpdir $TMPDIR
-sudo sh cuda-linux64-rel-7.5.18-19867135.run --noprompt --prefix $CUDA_HOME --tmpdir $TMPDIR
+sudo sh cuda_7.5.18_linux.run --silent --driver --toolkit --toolkitpath $CUDA_ROOT --extract $TMPDIR --kernel-source-path $KERNEL_SOURCE_PATH --tmpdir $TMPDIR
+sudo sh cuda-linux64-rel-7.5.18-19867135.run --noprompt --prefix $CUDA_ROOT --tmpdir $TMPDIR
 # add CUDA executables to Path
-export PATH=$PATH:$CUDA_HOME/bin
-export LD_LIBRARY_PATH=$CUDA_HOME/lib64
+export PATH=$PATH:$CUDA_ROOT/bin
+export LD_LIBRARY_PATH=$CUDA_ROOT/lib64
 
 # change directory back to Home folder
 cd ~
