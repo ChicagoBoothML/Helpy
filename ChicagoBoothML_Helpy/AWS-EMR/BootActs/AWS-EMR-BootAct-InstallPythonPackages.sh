@@ -152,7 +152,7 @@ sudo pip install --upgrade TimeSeries
 # advanced visualization tools: Bokeh, GGPlot, GNUPlot, MayaVi & Plotly
 sudo pip install --upgrade Bokeh
 sudo pip install --upgrade GGPlot
-sudo pip install --upgrade GNUPlot-Py --allow-external GNUPlot-Py --allow-unverified GNUPlot-Py
+#   sudo pip install --upgrade GNUPlot-Py --allow-external GNUPlot-Py --allow-unverified GNUPlot-Py
 
 # brew install Expat
 # brew install MakeDepend
