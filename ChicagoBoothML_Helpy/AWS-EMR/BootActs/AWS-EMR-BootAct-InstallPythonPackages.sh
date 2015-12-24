@@ -24,7 +24,7 @@ export KERNEL_RELEASE=$(uname -r)
 export KERNEL_SOURCE_PATH=/usr/src/kernels/$KERNEL_RELEASE
 
 
-# move to Home folder
+# change directory to Home folder
 cd ~
 
 
@@ -84,7 +84,7 @@ sudo ln -s $(which g++) `brew --prefix`/bin/g++-$(g++ -dumpversion |cut -d. -f1,
 sudo ln -s $(which gfortran) `brew --prefix`/bin/gfortran-$(gfortran -dumpversion |cut -d. -f1,2)
 
 
-# change directory to Temp folder
+# change directory to Temp folder to install NVIDIA driver & CUDA toolkit
 cd $TMPDIR
 
 # install NVIDIA driver
@@ -95,21 +95,20 @@ cd $TMPDIR
 # Product: GRID K520
 # Operating System: Linux 64-bit
 # Recommended/Beta: Recommended/Certified
-wget http://us.download.nvidia.com/XFree86/Linux-x86_64/358.16/NVIDIA-Linux-x86_64-358.16.
-# the following installation issues warnings that prompt non-zero exit codes;
-# hence we turn off strict error trap
+wget http://us.download.nvidia.com/XFree86/Linux-x86_64/358.16/NVIDIA-Linux-x86_64-358.16.run
+# the following installation issues warnings that prompt a non-zero exit code,
+# hence we turn off the strict error trap temporarily and turn it back on again
 set +e
 sudo sh NVIDIA-Linux-x86_64-358.16.run --silent --kernel-source-path $KERNEL_SOURCE_PATH --tmpdir $TMPDIR
 set -e
 
-# install CUDA package
+# install CUDA toolkit
 wget http://developer.download.nvidia.com/compute/cuda/7.5/Prod/local_installers/cuda_7.5.18_linux.run
 sudo sh cuda_7.5.18_linux.run --silent --driver --toolkit --toolkitpath $CUDA_HOME --extract $TMPDIR --kernel-source-path $KERNEL_SOURCE_PATH --tmpdir $TMPDIR
 sudo sh cuda-linux64-rel-7.5.18-19867135.run --noprompt --prefix $CUDA_HOME --tmpdir $TMPDIR
 # add CUDA executables to Path
 export PATH=$PATH:$CUDA_HOME/bin
 export LD_LIBRARY_PATH=$CUDA_HOME/lib64
-
 
 # change directory back to Home folder
 cd ~
