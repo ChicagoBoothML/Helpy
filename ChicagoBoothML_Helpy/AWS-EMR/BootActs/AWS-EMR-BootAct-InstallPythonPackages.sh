@@ -9,10 +9,10 @@ set -x -e
 export HOME=/mnt/home
 mkdir $HOME
 
+export SPARK_HOME=/usr/lib/spark
+
 export CUDA_HOME=/mnt/cuda-7.5
 mkdir $CUDA_HOME
-
-export SPARK_HOME=/usr/lib/spark
 
 export TMPDIR=/mnt/tmp
 mkdir -p $TMPDIR
@@ -231,6 +231,8 @@ sudo pip install --upgrade FindSpark
 # PySpark_CSV
 wget https://raw.githubusercontent.com/seahboonsiew/pyspark-csv/master/pyspark_csv.py
 
+# download .TheanoRC containing Theano configurations
+wget https://raw.githubusercontent.com/ChicagoBoothML/Helpy/master/ChicagoBoothML_Helpy/AWS-EMR/BootActs/.theanorc
 
 # download PostgreSQL JDBC driver
 curl https://jdbc.postgresql.org/download/postgresql-9.4-1205.jdbc42.jar --output PostgreSQL_JDBC.jar
