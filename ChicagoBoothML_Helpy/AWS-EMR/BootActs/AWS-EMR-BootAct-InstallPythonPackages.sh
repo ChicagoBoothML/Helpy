@@ -109,6 +109,8 @@ sudo sh cuda-linux64-rel-7.5.18-19867135.run --noprompt --prefix $CUDA_ROOT --tm
 # add CUDA executables to Path
 export PATH=$PATH:$CUDA_ROOT/bin
 export LD_LIBRARY_PATH=$CUDA_ROOT/lib64
+sudo ln -s $CUDA_ROOT/bin/nvcc /usr/bin/nvcc
+
 
 # change directory back to Home folder
 cd ~
@@ -161,8 +163,14 @@ sudo pip install --upgrade GNUPlot-Py --allow-external GNUPlot-Py --allow-unveri
 sudo pip install --upgrade Plotly
 
 # CUDA/GPU tools, Theano & Deep Learning
-# sudo pip install --upgrade PyCUDA
-# sudo pip install --upgrade SciKit-CUDA
+git clone --recursive http://git.tiker.net/trees/pycuda.git
+cd pycuda
+sudo python configure.py --cuda-root=$CUDA_ROOT
+sudo make install
+cd ..
+sudo rm -r pycuda
+
+sudo pip install --upgrade SciKit-CUDA
 sudo pip install --upgrade Theano
 sudo pip install --upgrade Keras
 sudo pip install --upgrade NeuroLab
