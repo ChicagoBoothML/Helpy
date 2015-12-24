@@ -2,11 +2,17 @@
 
 
 # parse command-line options
-while getopts "b:n:t:m:w:" opt
+while getopts "b:m:p:n:t:q:z:" opt
 do
     case $opt in
         b)
             S3_BUCKET_NAME=$OPTARG
+            ;;
+        m)
+            MASTER_INSTANCE_TYPE=$OPTARG
+            ;;
+        p)
+            MASTER_INSTANCE_PRICE=$OPTARG
             ;;
         n)
             NB_WORKER_NODES=$OPTARG
@@ -14,22 +20,15 @@ do
         t)
             WORKER_INSTANCE_TYPE=$OPTARG
             ;;
-        m)
-            MASTER_INSTANCE_PRICE=$OPTARG
-            ;;
-        w)
+        q)
             WORKER_INSTANCE_PRICE=$OPTARG
             ;;
     esac
 done
 
 
-# other parameters
-MASTER_INSTANCE_TYPE=g2.2xlarge
-
-
 # upload AWS EMR Bootstrap Action script(s) to S3 Bucket
-echo "Uploading AWS EMR Bootstrap Action script(s) to s3://$S3_BUCKET_NAME (which must be in region us-west-1)..."
+echo "Uploading AWS EMR Bootstrap Action script(s) to s3://$S3_BUCKET_NAME..."
 aws s3 cp \
     BootActs/AWS-EMR-BootAct-InstallPythonPackages.sh \
     s3://$S3_BUCKET_NAME/AWS-EMR-BootAct-InstallPythonPackages.sh \
@@ -52,7 +51,7 @@ aws emr create-cluster \
     --log-uri \
         s3://mbalearnstocode-spark/zzzLogs \
     --ec2-attributes \
-        AvailabilityZone=us-west-1a,KeyName=keypair \
+        KeyName=keypair \
     --no-termination-protected \
     --visible-to-all-users \
     --enable-debugging \
