@@ -4,6 +4,7 @@
 device = gpu
 force_device = False
 floatX = float32
+int_division = raise
 reoptimize_unpickled_function = False
 
 [cuda]
