@@ -114,6 +114,10 @@ export LD_LIBRARY_PATH=$CUDA_HOME/lib64
 cd ~
 
 
+# download PostgreSQL JDBC driver
+curl https://jdbc.postgresql.org/download/postgresql-9.4-1205.jdbc42.jar --output PostgreSQL_JDBC.jar
+
+
 # make Python 2.7 default Python
 sudo rm /usr/bin/python
 sudo rm /usr/bin/pip
@@ -233,9 +237,6 @@ wget https://raw.githubusercontent.com/seahboonsiew/pyspark-csv/master/pyspark_c
 
 # download .TheanoRC containing Theano configurations
 wget https://raw.githubusercontent.com/ChicagoBoothML/Helpy/master/ChicagoBoothML_Helpy/AWS-EMR/BootActs/.theanorc
-
-# download PostgreSQL JDBC driver
-curl https://jdbc.postgresql.org/download/postgresql-9.4-1205.jdbc42.jar --output PostgreSQL_JDBC.jar
 
 
 # launch iPython from Master node
