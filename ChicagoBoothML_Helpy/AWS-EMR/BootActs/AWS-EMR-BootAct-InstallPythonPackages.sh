@@ -4,12 +4,24 @@
 set -x -e
 
 
-# return to Home folder
-cd ~
-
-
 # set environment variables
-export SPARK_HOME="/usr/lib/spark"
+export HOME=/mnt/home
+mkdir $HOME
+
+export CUDA_HOME=/mnt/cuda-7.5
+mkdir $CUDA_HOME
+
+export TMPDIR=/mnt/tmp
+mkdir -p $TMPDIR
+
+export SPARK_HOME=/usr/lib/spark
+
+export KERNEL_RELEASE=$(uname -r)
+export KERNEL_SOURCE_PATH=/usr/src/kernels/$KERNEL_RELEASE
+
+
+# move to Home folder
+cd ~
 
 
 # enable installation from Fedora repo
@@ -23,16 +35,22 @@ sudo mv ~/fedora.repo /etc/yum.repos.d/
 
 # update all packages
 sudo yum update -y
-
+# which covers the following essentials
+# sudo yum install -y gcc
+# sudo yum install -y gcc-c++
+# sudo yum install -y gcc-gfortran
+# sudo yum install -y patch
 
 # install essential Development Tools
 sudo yum groupinstall -y "Development tools"
 # which covers the following essentials:
-# sudo yum install -y gcc
-# sudo yum install -y gcc-c++
-# sudo yum install -y gcc-gfortran
 # sudo yum install -y git
-# sudo yum install -y patch
+
+# reinstall some compatible kernel source files
+sudo yum erase -y kernel-devel
+sudo yum install -y kernel-devel-$KERNEL_RELEASE
+# sudo yum install -y kernel-headers-$KERNEL_RELEASE
+
 
 # experimental installations of Fedora packages:
 # cd /etc/yum.repos.d
@@ -41,24 +59,33 @@ sudo yum groupinstall -y "Development tools"
 # sudo yum -y --nogpgcheck install devtoolset-3-gcc-c++
 
 
+# install numerical libraries
+# sudo yum -y install atlas-devel
+# sudo yum -y install blas-devel
+# sudo yum -y install lapack-devel
+
+
 # install certain other packages
 sudo yum install -y boost
 sudo yum install -y cairo-devel
 sudo yum install -y libjpeg-devel
-sudo yum install -y ncurses-devel
+# sudo yum install -y ncurses-devel
 
 
 # install LinuxBrew
 git clone https://github.com/Homebrew/linuxbrew.git ~/.linuxbrew
-export PATH="~/.linuxbrew/bin:~/.linuxbrew/sbin:$PATH:/user/local/include"
-export HOMEBREW_TEMP=/var/tmp
-sudo chmod +t /var/tmp
+export PATH=~/.linuxbrew/bin:~/.linuxbrew/sbin:$PATH:/user/local/include
+export HOMEBREW_TEMP=$TMPDIR
+sudo chmod +t $TMPDIR
 sudo ln -s $(which gcc) `brew --prefix`/bin/gcc-$(gcc -dumpversion |cut -d. -f1,2)
 sudo ln -s $(which g++) `brew --prefix`/bin/g++-$(g++ -dumpversion |cut -d. -f1,2)
 sudo ln -s $(which gfortran) `brew --prefix`/bin/gfortran-$(gfortran -dumpversion |cut -d. -f1,2)
 
 
-# install NVIDIA / CUDA drivers
+# change directory to Temp folder
+cd $TMPDIR
+
+# install NVIDIA driver
 # (ref: http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using_cluster_computing.html#install-nvidia-driver)
 # G2 Instances
 # Product Type: GRID
@@ -66,8 +93,20 @@ sudo ln -s $(which gfortran) `brew --prefix`/bin/gfortran-$(gfortran -dumpversio
 # Product: GRID K520
 # Operating System: Linux 64-bit
 # Recommended/Beta: Recommended/Certified
-# wget http://us.download.nvidia.com/XFree86/Linux-x86_64/358.16/NVIDIA-Linux-x86_64-358.16.run
-# sudo sh NVIDIA-Linux-x86_64-358.16.run
+wget http://us.download.nvidia.com/XFree86/Linux-x86_64/358.16/NVIDIA-Linux-x86_64-358.16.run
+sudo sh NVIDIA-Linux-x86_64-358.16.run --silent --kernel-source-path $KERNEL_SOURCE_PATH --tmpdir $TMPDIR
+
+# install CUDA package (for Fedora)
+wget http://developer.download.nvidia.com/compute/cuda/7.5/Prod/local_installers/cuda_7.5.18_linux.run
+sudo sh cuda_7.5.18_linux.run --silent --driver --toolkit --toolkitpath $CUDA_HOME --extract $TMPDIR --kernel-source-path $KERNEL_SOURCE_PATH --tmpdir $TMPDIR
+sudo sh cuda-linux64-rel-7.5.18-19867135.run --noprompt --prefix $CUDA_HOME --tmpdir $TMPDIR
+# add CUDA executables to Path
+export PATH=$PATH:$CUDA_HOME/bin
+export LD_LIBRARY_PATH=$CUDA_HOME/lib64
+
+
+# change directory back to Home folder
+cd ~
 
 
 # make Python 2.7 default Python
@@ -197,10 +236,10 @@ if grep isMaster /mnt/var/lib/info/instance.json | grep true
 then
     # create iPython profile
     /usr/local/bin/ipython profile create default
-    echo "c = get_config()"                    > /home/hadoop/.ipython/profile_default/ipython_notebook_config.py
-    echo "c.NotebookApp.ip = '*'"             >> /home/hadoop/.ipython/profile_default/ipython_notebook_config.py
-    echo "c.NotebookApp.open_browser = False" >> /home/hadoop/.ipython/profile_default/ipython_notebook_config.py
-    echo "c.NotebookApp.port = 8133"          >> /home/hadoop/.ipython/profile_default/ipython_notebook_config.py
+    echo "c = get_config()"                    > $HOME/.ipython/profile_default/ipython_notebook_config.py
+    echo "c.NotebookApp.ip = '*'"             >> $HOME/.ipython/profile_default/ipython_notebook_config.py
+    echo "c.NotebookApp.open_browser = False" >> $HOME/.ipython/profile_default/ipython_notebook_config.py
+    echo "c.NotebookApp.port = 8133"          >> $HOME/.ipython/profile_default/ipython_notebook_config.py
 
     # launch iPython server
     nohup /usr/local/bin/ipython notebook --no-browser > /mnt/var/log/python_notebook.log &
