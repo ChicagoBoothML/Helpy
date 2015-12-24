@@ -166,9 +166,19 @@ sudo pip install --upgrade Plotly
 git clone --recursive http://git.tiker.net/trees/pycuda.git
 cd pycuda
 sudo python configure.py --cuda-root=$CUDA_ROOT
+# the following installation issues warnings that prompt a non-zero exit code,
+# hence we turn off the strict error trap temporarily and turn it back on again
+set +e
 sudo make install
+set -e
 cd ..
 sudo rm -r pycuda
+
+git clone https://github.com/zzzeek/mako.git
+cd mako
+sudo python setup.py install
+cd ..
+sudo rm -r mako
 
 sudo pip install --upgrade SciKit-CUDA
 sudo pip install --upgrade Theano
