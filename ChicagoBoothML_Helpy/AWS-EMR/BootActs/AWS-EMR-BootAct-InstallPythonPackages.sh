@@ -216,6 +216,7 @@ sudo pip install --upgrade NLPnet
 #   sudo pip install --upgrade NLPy   installation fails
 sudo pip install --upgrade NN
 #   sudo pip install --upgrade Nodes   installation fails
+sudo pip install --upgrade NoLearn
 sudo pip install --upgrade PyBrain
 sudo pip install --upgrade PyBrain2
 sudo pip install --upgrade PyDeepLearning
