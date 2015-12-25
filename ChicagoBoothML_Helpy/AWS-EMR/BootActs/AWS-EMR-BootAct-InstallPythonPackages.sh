@@ -101,7 +101,7 @@ cd $TMPDIR
 # Operating System: Linux 64-bit
 # Recommended/Beta: Recommended/Certified
 wget http://us.download.nvidia.com/XFree86/Linux-x86_64/358.16/NVIDIA-Linux-x86_64-358.16.run
-# the following installation issues warnings that prompt a non-zero exit code,
+# the following installation fails on non-NVIDIA GPU nodes,
 # hence we turn off the strict error trap temporarily and turn it back on again
 set +e
 sudo sh NVIDIA-Linux-x86_64-358.16.run --silent --kernel-source-path $KERNEL_SOURCE_PATH --tmpdir $TMPDIR
@@ -111,13 +111,17 @@ set -e
 wget http://developer.download.nvidia.com/compute/cuda/7.5/Prod/local_installers/cuda_7.5.18_linux.run
 sudo sh cuda_7.5.18_linux.run --silent --driver --toolkit --toolkitpath $CUDA_ROOT --extract $TMPDIR --kernel-source-path $KERNEL_SOURCE_PATH --tmpdir $TMPDIR
 sudo sh cuda-linux64-rel-7.5.18-19867135.run --noprompt --prefix $CUDA_ROOT --tmpdir $TMPDIR
-# add CUDA executables to Path
+# add CUDA executables & libraries to Path
+# instructions: Please make sure that
+# -   PATH includes /mnt/cuda-7.5/bin
+# -   LD_LIBRARY_PATH includes /mnt/cuda-7.5/lib64, or,
+# add /mnt/cuda-7.5/lib64 to /etc/ld.so.conf and run ldconfig as root
 export PATH=$PATH:$CUDA_ROOT/bin
-export LD_LIBRARY_PATH=$CUDA_ROOT/lib:$CUDA_ROOT/lib64:/usr/local/cuda/nvvm/libdevice
-echo "include ld.so.conf.d/*.conf"  > ~/ld.so.conf
-echo "$CUDA_ROOT/lib"              >> ~/ld.so.conf
-echo "$CUDA_ROOT/lib64"            >> ~/ld.so.conf
-sudo mv ~/ld.so.conf /etc/
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CUDA_ROOT/lib:$CUDA_ROOT/lib64
+# :/usr/local/cuda/nvvm/libdevice
+echo "$CUDA_ROOT/lib"      > ~/cuda.conf
+echo "$CUDA_ROOT/lib64"   >> ~/cuda.conf
+sudo mv ~/cuda.conf /etc/ld.so.conf.d/
 sudo ldconfig
 sudo ln -s $CUDA_ROOT/bin/nvcc /usr/bin/nvcc
 
