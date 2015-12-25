@@ -11,7 +11,7 @@ mkdir $HOME
 
 export SPARK_HOME=/usr/lib/spark
 
-export CUDA_ROOT=/usr/local/cuda-7.5
+export CUDA_ROOT=/mnt/cuda-7.5
 mkdir $CUDA_ROOT
 
 export TMPDIR=/mnt/tmp
