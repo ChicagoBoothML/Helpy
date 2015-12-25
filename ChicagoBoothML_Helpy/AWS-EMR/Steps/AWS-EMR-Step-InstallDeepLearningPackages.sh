@@ -5,17 +5,8 @@
 set -x -e
 
 
-# set environment variables
-export HOME=/mnt/home
-
-export CUDA_ROOT=/mnt/cuda-7.5
-mkdir $CUDA_ROOT
-
-export KERNEL_RELEASE=$(uname -r)
-export KERNEL_SOURCE_PATH=/usr/src/kernels/$KERNEL_RELEASE
-
-export TMPDIR=/mnt/tmp
-mkdir -p $TMPDIR
+# source .BashRC
+source .bashrc
 
 
 # change directory to Temp folder to install NVIDIA driver & CUDA toolkit
@@ -67,4 +58,51 @@ sudo rm -r pycuda
 
 sudo pip install --upgrade SciKit-CUDA
 sudo pip install GNumPy
+
+
+# install Theano
+sudo pip install --upgrade Theano
+wget https://raw.githubusercontent.com/ChicagoBoothML/Helpy/master/ChicagoBoothML_Helpy/AWS-EMR/BootActs/.theanorc
+
+
+# install Deep Learning packages
+sudo pip install --upgrade git+git://github.com/mila-udem/fuel.git
+sudo pip install --upgrade git+git://github.com/mila-udem/blocks.git
+sudo pip install --upgrade Chainer
+#   sudo pip install --upgrade DeepCL   need OpenCL
+sudo pip install --upgrade DeepDish
+#   sudo pip install --upgrade DeepDist   not yet available
+#   sudo pip install --upgrade DeepLearning   not yet available
+sudo pip install --upgrade Deepy
+#   sudo pip install --upgrade FANN2   need C FANN
+sudo pip install --upgrade FFnet
 sudo pip install --upgrade Hebel
+sudo pip install --upgrade Keras
+sudo pip install --upgrade https://github.com/Lasagne/Lasagne/archive/master.zip
+sudo pip install --upgrade Mang
+#   sudo pip install --upgrade Mozi   not yet available
+sudo pip install --upgrade NervanaNEON
+#   sudo pip install --upgrade NeuralPy   skip because this downgrades NumPy
+sudo pip install --upgrade NeuroLab
+sudo pip install --upgrade NLPnet
+#   sudo pip install --upgrade NLPy   installation fails
+sudo pip install --upgrade NN
+#   sudo pip install --upgrade Nodes   installation fails
+sudo pip install --upgrade NoLearn
+sudo pip install --upgrade PyBrain
+sudo pip install --upgrade PyBrain2
+sudo pip install --upgrade PyDeepLearning
+sudo pip install --upgrade PyDNN
+
+git clone git://github.com/lisa-lab/pylearn2.git
+cd pylearn2
+sudo python setup.py develop
+cd ..
+
+sudo pip install --upgrade PythonBrain
+sudo pip install --upgrade SciKit-NeuralNetwork
+sudo pip install --upgrade git+git://github.com/sklearn-theano/sklearn-theano
+#   sudo pip install --upgrade Synapyse   installation fails
+#   sudo pip install --upgrade Syntaur   not yet available
+sudo pip install --upgrade https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-0.6.0-cp27-none-linux_x86_64.whl
+sudo pip install --upgrade Theanets
