@@ -1,3 +1,5 @@
+export OLD_HOME=/home/hadoop
+
 export HOME=/mnt/home
 mkdir -p $HOME
 cd ~
