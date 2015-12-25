@@ -111,7 +111,7 @@ sudo pip install --upgrade SciPy
 sudo pip install --upgrade SymPy
 
 # certain popular SkiKits: http://scikits.appspot.com/scikits
-# sudo pip install --upgrade SciKit-Image   takes long
+sudo pip install --upgrade SciKit-Image
 sudo pip install --upgrade SciKit-Learn
 sudo pip install --upgrade StatsModels
 sudo pip install --upgrade TimeSeries
