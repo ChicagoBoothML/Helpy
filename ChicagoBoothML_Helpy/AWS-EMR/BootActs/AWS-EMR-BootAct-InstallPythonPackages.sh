@@ -113,7 +113,12 @@ sudo sh cuda_7.5.18_linux.run --silent --driver --toolkit --toolkitpath $CUDA_RO
 sudo sh cuda-linux64-rel-7.5.18-19867135.run --noprompt --prefix $CUDA_ROOT --tmpdir $TMPDIR
 # add CUDA executables to Path
 export PATH=$PATH:$CUDA_ROOT/bin
-export LD_LIBRARY_PATH=$CUDA_ROOT/lib64:/usr/local/cuda/nvvm/libdevice
+export LD_LIBRARY_PATH=$CUDA_ROOT/lib:$CUDA_ROOT/lib64:/usr/local/cuda/nvvm/libdevice
+echo "include ld.so.conf.d/*.conf"  > ~/ld.so.conf
+echo "$CUDA_ROOT/lib"              >> ~/ld.so.conf
+echo "$CUDA_ROOT/lib64"            >> ~/ld.so.conf
+sudo mv ~/ld.so.conf /etc/
+sudo ldconfig
 sudo ln -s $CUDA_ROOT/bin/nvcc /usr/bin/nvcc
 
 
@@ -211,7 +216,13 @@ sudo pip install --upgrade DeepDish
 sudo pip install --upgrade Deepy
 #   sudo pip install --upgrade FANN2   need C FANN
 sudo pip install --upgrade FFnet
+
+# the following installation may fail on non-GPU nodes,
+# hence we turn off the strict error trap temporarily and turn it back on again
+set +e
 sudo pip install --upgrade Hebel
+set -e
+
 sudo pip install --upgrade Keras
 sudo pip install --upgrade https://github.com/Lasagne/Lasagne/archive/master.zip
 sudo pip install --upgrade Mang
