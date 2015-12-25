@@ -16,3 +16,5 @@ export KERNEL_SOURCE_PATH=/usr/src/kernels/$KERNEL_RELEASE
 
 export GEOS_DIR=/usr/local
 export PROJ_DIR=/usr/local
+
+export IPYTHON_NOTEBOOK_CONFIG_FILE_PATH=~/.ipython/profile_default/ipython_notebook_config.py
