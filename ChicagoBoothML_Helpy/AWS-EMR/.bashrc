@@ -5,6 +5,7 @@ cd ~
 export SPARK_HOME=/usr/lib/spark
 
 export CUDA_ROOT=/mnt/cuda-7.5
+mkdir -p $CUDA_ROOT
 
 export TMPDIR=/mnt/tmp
 mkdir -p $TMPDIR
