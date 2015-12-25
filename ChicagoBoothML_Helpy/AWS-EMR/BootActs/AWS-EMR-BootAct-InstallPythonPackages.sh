@@ -16,7 +16,6 @@ mkdir $CUDA_ROOT
 
 export TMPDIR=/mnt/tmp
 mkdir -p $TMPDIR
-# sudo chmod +t $TMPDIR   not necessary for Homebrew below?
 
 export HOMEBREW_TEMP=$TMPDIR
 
@@ -35,7 +34,7 @@ cd ~
 echo "[fedora]"                                                                               > ~/fedora.repo
 echo "name=fedora"                                                                           >> ~/fedora.repo
 echo "mirrorlist=http://mirrors.fedoraproject.org/mirrorlist?repo=fedora-23&arch=\$basearch" >> ~/fedora.repo
-echo "enabled=0"                                                                             >> ~/fedora.repo
+echo "enabled=1"                                                                             >> ~/fedora.repo
 echo "gpgcheck=0"                                                                            >> ~/fedora.repo
 sudo mv ~/fedora.repo /etc/yum.repos.d/
 
@@ -58,22 +57,25 @@ sudo yum erase -y kernel-devel
 sudo yum install -y kernel-devel-$KERNEL_RELEASE
 # sudo yum install -y kernel-headers-$KERNEL_RELEASE
 
-
 # experimental installations of Fedora packages:
 # cd /etc/yum.repos.d
 # sudo wget http://linuxsoft.cern.ch/cern/scl/slc6-scl.repo
 # sudo yum -y --nogpgcheck install devtoolset-3-gcc
 # sudo yum -y --nogpgcheck install devtoolset-3-gcc-c++
 
-
 # install numerical libraries
 # sudo yum -y install atlas-devel
 # sudo yum -y install blas-devel
 # sudo yum -y install lapack-devel
 
+# install Boost
+sudo yum install -y boost
+
+# install HDF5
+sudo rpm -ivh http://www.hdfgroup.org/ftp/HDF5/current/bin/RPMS/hdf5-1.8.16-1.with.szip.encoder.el7.x86_64.rpm
+sudo rpm -ivh http://www.hdfgroup.org/ftp/HDF5/current/bin/RPMS/hdf5-devel-1.8.16-1.with.szip.encoder.el7.x86_64.rpm
 
 # install certain other packages
-sudo yum install -y boost
 sudo yum install -y cairo-devel
 sudo yum install -y libjpeg-devel
 # sudo yum install -y ncurses-devel
@@ -165,11 +167,62 @@ sudo pip install --upgrade GGPlot
 
 sudo pip install --upgrade Plotly
 
-# Theano & Deep Learning
+# Machine Learning packages
+sudo pip install --upgrade H2O
+#   sudo pip install --upgrade Orange   too heavy
+sudo pip install --upgrade Sparkit-Learn
+
+# CUDA, Theano & Deep Learning
+git clone --recursive http://git.tiker.net/trees/pycuda.git
+cd pycuda
+sudo python configure.py --cuda-root=$CUDA_ROOT
+# the following installation issues warnings that prompt a non-zero exit code,
+# hence we turn off the strict error trap temporarily and turn it back on again
+set +e
+sudo make install
+set -e
+cd ..
+sudo rm -r pycuda
+
 sudo pip install --upgrade Theano
+
+sudo pip install --upgrade git+git://github.com/mila-udem/blocks.git
+sudo pip install --upgrade Chainer
+#   sudo pip install --upgrade DeepCL   need OpenCL
+sudo pip install --upgrade DeepDish
+#   sudo pip install --upgrade DeepDist   not yet available
+#   sudo pip install --upgrade DeepLearning   not yet available
+sudo pip install --upgrade Deepy
+#   sudo pip install --upgrade FANN2   need C FANN
+sudo pip install --upgrade FFnet
+sudo pip install --upgrade git+git://github.com/mila-udem/fuel.git
+sudo pip install --upgrade Hebel
 sudo pip install --upgrade Keras
+sudo pip install --upgrade https://github.com/Lasagne/Lasagne/archive/master.zip
+sudo pip install --upgrade Mang
+#   sudo pip install --upgrade Mozi   not yet available
+sudo pip install --upgrade NervanaNEON
+#   sudo pip install --upgrade NeuralPy   skip because this downgrades NumPy
 sudo pip install --upgrade NeuroLab
+#   sudo pip install --upgrade NLPy   installation fails
+sudo pip install --upgrade NN
+#   sudo pip install --upgrade Nodes   installation fails
+sudo pip install --upgrade PyBrain
+sudo pip install --upgrade PyBrain2
+sudo pip install --upgrade PyDeepLearning
+sudo pip install --upgrade PyDNN
+
+git clone git://github.com/lisa-lab/pylearn2.git
+cd pylearn2
+sudo python setup.py develop
+cd ..
+
+sudo pip install --upgrade PythonBrain
 sudo pip install --upgrade SciKit-NeuralNetwork
+#   sudo pip install --upgrade Synapyse   installation fails
+#   sudo pip install --upgrade Syntaur   not yet available
+sudo pip install --upgrade https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-0.6.0-cp27-none-linux_x86_64.whl
+sudo pip install --upgrade Theanets
 
 # install Geos, Proj, Basemap, Google Maps API & other geospatial libraries
 git clone https://github.com/matplotlib/basemap.git
@@ -200,8 +253,8 @@ sudo pip install --upgrade PySAL
 
 # brew install gdal
 # sudo pip install --upgrade Fiona   # depends on GDAL
-# sudo pip install --upgrade Cartopy
-# sudo pip install --upgrade Kartograph
+# sudo pip install --upgrade Cartopy   # canno detect Proj4.8
+# sudo pip install --upgrade Kartograph    # not yet released
 
 # network analysis tools: APGL, Cairo, Graph-Tool, GraphViz, NetworkX, Python-iGraph & SNAPPy
 sudo pip install --upgrade APGL
