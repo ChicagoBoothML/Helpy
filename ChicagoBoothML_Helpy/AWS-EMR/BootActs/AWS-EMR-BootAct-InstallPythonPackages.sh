@@ -154,6 +154,9 @@ sudo pip install --upgrade SciKit-Learn
 sudo pip install --upgrade StatsModels
 sudo pip install --upgrade TimeSeries
 
+# Natural Language Toolkit
+sudo pip install --upgrade NLTK
+
 # advanced visualization tools: Bokeh, GGPlot, GNUPlot, MayaVi & Plotly
 sudo pip install --upgrade Bokeh
 sudo pip install --upgrade GGPlot
@@ -170,6 +173,7 @@ sudo pip install --upgrade Plotly
 # Machine Learning packages
 sudo pip install --upgrade H2O
 #   sudo pip install --upgrade Orange   too heavy
+sudo pip install --upgrade SKLearn-Pandas
 sudo pip install --upgrade Sparkit-Learn
 
 # CUDA, Theano & Deep Learning
@@ -184,7 +188,11 @@ set -e
 cd ..
 sudo rm -r pycuda
 
+#   sudo pip install git+https://github.com/cudamat/cudamat.git
+sudo pip install GNumPy
+
 sudo pip install --upgrade Theano
+sudo pip install --upgrade git+git://github.com/sklearn-theano/sklearn-theano
 
 sudo pip install --upgrade git+git://github.com/mila-udem/blocks.git
 sudo pip install --upgrade Chainer
@@ -204,6 +212,7 @@ sudo pip install --upgrade Mang
 sudo pip install --upgrade NervanaNEON
 #   sudo pip install --upgrade NeuralPy   skip because this downgrades NumPy
 sudo pip install --upgrade NeuroLab
+sudo pip install --upgrade NLPnet
 #   sudo pip install --upgrade NLPy   installation fails
 sudo pip install --upgrade NN
 #   sudo pip install --upgrade Nodes   installation fails
