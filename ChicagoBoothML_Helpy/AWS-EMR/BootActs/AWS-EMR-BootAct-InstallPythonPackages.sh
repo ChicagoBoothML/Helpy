@@ -211,7 +211,6 @@ sudo pip install --upgrade DeepDish
 sudo pip install --upgrade Deepy
 #   sudo pip install --upgrade FANN2   need C FANN
 sudo pip install --upgrade FFnet
-
 sudo pip install --upgrade Hebel
 sudo pip install --upgrade Keras
 sudo pip install --upgrade https://github.com/Lasagne/Lasagne/archive/master.zip
