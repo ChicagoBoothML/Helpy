@@ -5,12 +5,8 @@
 set -x -e
 
 
-# set environment variables
-export OLD_HOME=/home/hadoop
-
-
-# source .BashRC from old home folder
-source $OLD_HOME/.bashrc
+# source .BashRC
+source ~/.bashrc
 
 
 # change directory to Temp folder to install NVIDIA driver & CUDA toolkit
