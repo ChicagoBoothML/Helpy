@@ -35,8 +35,8 @@ aws s3 cp \
     --region us-west-1 \
     --no-verify-ssl
 aws s3 cp \
-    Steps/AWS-EMR-Step-InstallCUDAandRelatedPackages.sh \
-    s3://$S3_BUCKET_NAME/AWS-EMR-Step-InstallCUDAandRelatedPackages.sh \
+    Steps/AWS-EMR-Step-InstallDeepLearningPackages.sh \
+    s3://$S3_BUCKET_NAME/AWS-EMR-Step-InstallDeepLearningPackages.sh \
     --region us-west-1 \
     --no-verify-ssl
 echo "done!"
@@ -65,5 +65,5 @@ aws emr create-cluster \
     --bootstrap-actions \
         Path=s3://$S3_BUCKET_NAME/AWS-EMR-BootAct-InstallPythonPackages.sh,Name=InstallPythonPackages \
     --steps \
-        Type=CUSTOM_JAR,Jar=s3://elasticmapreduce/libs/script-runner/script-runner.jar,Args=s3://$S3_BUCKET_NAME/AWS-EMR-Step-InstallCUDAandRelatedPackages.sh,Name=InstallCUDAandRelatedPackages,ActionOnFailure=TERMINATE_CLUSTER
+        Type=CUSTOM_JAR,Jar=s3://elasticmapreduce/libs/script-runner/script-runner.jar,Args=s3://$S3_BUCKET_NAME/AWS-EMR-Step-InstallDeepLearningPackages.sh,Name=InstallDeepLearningPackages,ActionOnFailure=TERMINATE_CLUSTER
 echo "Please check your AWS EMR Console for your cluster's status."
