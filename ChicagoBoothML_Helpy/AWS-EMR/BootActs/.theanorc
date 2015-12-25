@@ -40,7 +40,7 @@ fastmath = True
 
 
 [pycuda]
-init = False
+init = True
 
 
 [tensor]

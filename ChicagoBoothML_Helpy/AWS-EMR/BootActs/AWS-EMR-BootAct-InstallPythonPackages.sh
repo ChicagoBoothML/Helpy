@@ -201,6 +201,7 @@ sudo pip install GNumPy
 sudo pip install --upgrade Theano
 sudo pip install --upgrade git+git://github.com/sklearn-theano/sklearn-theano
 
+sudo pip install --upgrade git+git://github.com/mila-udem/fuel.git
 sudo pip install --upgrade git+git://github.com/mila-udem/blocks.git
 sudo pip install --upgrade Chainer
 #   sudo pip install --upgrade DeepCL   need OpenCL
@@ -210,7 +211,7 @@ sudo pip install --upgrade DeepDish
 sudo pip install --upgrade Deepy
 #   sudo pip install --upgrade FANN2   need C FANN
 sudo pip install --upgrade FFnet
-sudo pip install --upgrade git+git://github.com/mila-udem/fuel.git
+
 sudo pip install --upgrade Hebel
 sudo pip install --upgrade Keras
 sudo pip install --upgrade https://github.com/Lasagne/Lasagne/archive/master.zip
