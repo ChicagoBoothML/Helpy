@@ -63,7 +63,7 @@ aws emr create-cluster \
     --applications \
         Name=Spark \
     --bootstrap-actions \
-        Path=s3://$S3_BUCKET_NAME/AWS-EMR-BootAct-InstallPythonPackages.sh,Name=InstallPythonPackages
+        Path=s3://$S3_BUCKET_NAME/AWS-EMR-BootAct-InstallPythonPackages.sh,Name=InstallPythonPackages \
     --steps \
         Type=CUSTOM_JAR,Jar=s3://elasticmapreduce/libs/script-runner/script-runner.jar,Args=s3://$S3_BUCKET_NAME/AWS-EMR-Step-InstallCUDAandRelatedPackages.sh,Name=InstallCUDAandRelatedPackages,ActionOnFailure=TERMINATE
 echo "Please check your AWS EMR Console for your cluster's status."
