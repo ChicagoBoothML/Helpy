@@ -23,6 +23,9 @@ export HOMEBREW_TEMP=$TMPDIR
 export KERNEL_RELEASE=$(uname -r)
 export KERNEL_SOURCE_PATH=/usr/src/kernels/$KERNEL_RELEASE
 
+export GEOS_DIR=/usr/local
+export PROJ_DIR=/usr/local
+
 
 # change directory to Home folder
 cd ~
@@ -162,25 +165,7 @@ sudo pip install --upgrade GGPlot
 
 sudo pip install --upgrade Plotly
 
-# CUDA/GPU tools, Theano & Deep Learning
-git clone --recursive http://git.tiker.net/trees/pycuda.git
-cd pycuda
-sudo python configure.py --cuda-root=$CUDA_ROOT
-# the following installation issues warnings that prompt a non-zero exit code,
-# hence we turn off the strict error trap temporarily and turn it back on again
-set +e
-sudo make install
-set -e
-cd ..
-sudo rm -r pycuda
-
-git clone https://github.com/zzzeek/mako.git
-cd mako
-sudo python setup.py install
-cd ..
-sudo rm -r mako
-
-sudo pip install --upgrade SciKit-CUDA
+# Theano & Deep Learning
 sudo pip install --upgrade Theano
 sudo pip install --upgrade Keras
 sudo pip install --upgrade NeuroLab
@@ -189,7 +174,6 @@ sudo pip install --upgrade SciKit-NeuralNetwork
 # install Geos, Proj, Basemap, Google Maps API & other geospatial libraries
 git clone https://github.com/matplotlib/basemap.git
 cd basemap/geos-*
-export GEOS_DIR=/usr/local
 ./configure --prefix=$GEOS_DIR
 make
 sudo make install
@@ -202,7 +186,6 @@ wget http://download.osgeo.org/proj/proj-4.8.0.tar.gz
 tar xzf proj-4.8.0.tar.gz
 sudo rm proj-4.8.0.tar.gz
 cd proj-4.8.0
-export PROJ_DIR=/usr/local
 ./configure --prefix=$PROJ_DIR
 make
 sudo make install
