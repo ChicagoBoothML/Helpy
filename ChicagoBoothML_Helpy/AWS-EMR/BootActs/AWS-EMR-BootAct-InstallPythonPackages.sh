@@ -113,7 +113,7 @@ sudo sh cuda_7.5.18_linux.run --silent --driver --toolkit --toolkitpath $CUDA_RO
 sudo sh cuda-linux64-rel-7.5.18-19867135.run --noprompt --prefix $CUDA_ROOT --tmpdir $TMPDIR
 # add CUDA executables to Path
 export PATH=$PATH:$CUDA_ROOT/bin
-export LD_LIBRARY_PATH=$CUDA_ROOT/lib64
+export LD_LIBRARY_PATH=$CUDA_ROOT/lib64:/usr/local/cuda/nvvm/libdevice
 sudo ln -s $CUDA_ROOT/bin/nvcc /usr/bin/nvcc
 
 
