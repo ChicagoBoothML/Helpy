@@ -5,22 +5,9 @@
 set -x -e
 
 
-# set environment variables
-export HOME=/mnt/home
-mkdir $HOME
-
-export SPARK_HOME=/usr/lib/spark
-
-export HOMEBREW_TEMP=/mnt/tmp
-
-export KERNEL_RELEASE=$(uname -r)
-
-export GEOS_DIR=/usr/local
-export PROJ_DIR=/usr/local
-
-
-# change directory to Home folder
-cd ~
+# download & source .BashRC
+wget https://raw.githubusercontent.com/ChicagoBoothML/Helpy/master/ChicagoBoothML_Helpy/AWS-EMR/.bashrc
+source .bashrc
 
 
 # enable installation from Fedora repo
@@ -137,49 +124,7 @@ sudo pip install --upgrade Orange
 sudo pip install --upgrade SKLearn-Pandas
 sudo pip install --upgrade Sparkit-Learn
 
-# Theano & Deep Learning
-sudo pip install --upgrade Theano
-sudo pip install --upgrade git+git://github.com/mila-udem/fuel.git
-sudo pip install --upgrade git+git://github.com/mila-udem/blocks.git
-sudo pip install --upgrade Chainer
-#   sudo pip install --upgrade DeepCL   need OpenCL
-sudo pip install --upgrade DeepDish
-#   sudo pip install --upgrade DeepDist   not yet available
-#   sudo pip install --upgrade DeepLearning   not yet available
-sudo pip install --upgrade Deepy
-#   sudo pip install --upgrade FANN2   need C FANN
-sudo pip install --upgrade FFnet
-sudo pip install --upgrade Keras
-sudo pip install --upgrade https://github.com/Lasagne/Lasagne/archive/master.zip
-sudo pip install --upgrade Mang
-#   sudo pip install --upgrade Mozi   not yet available
-sudo pip install --upgrade NervanaNEON
-#   sudo pip install --upgrade NeuralPy   skip because this downgrades NumPy
-sudo pip install --upgrade NeuroLab
-sudo pip install --upgrade NLPnet
-#   sudo pip install --upgrade NLPy   installation fails
-sudo pip install --upgrade NN
-#   sudo pip install --upgrade Nodes   installation fails
-sudo pip install --upgrade NoLearn
-sudo pip install --upgrade PyBrain
-sudo pip install --upgrade PyBrain2
-sudo pip install --upgrade PyDeepLearning
-sudo pip install --upgrade PyDNN
-
-git clone git://github.com/lisa-lab/pylearn2.git
-cd pylearn2
-sudo python setup.py develop
-cd ..
-
-sudo pip install --upgrade PythonBrain
-sudo pip install --upgrade SciKit-NeuralNetwork
-sudo pip install --upgrade git+git://github.com/sklearn-theano/sklearn-theano
-#   sudo pip install --upgrade Synapyse   installation fails
-#   sudo pip install --upgrade Syntaur   not yet available
-sudo pip install --upgrade https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-0.6.0-cp27-none-linux_x86_64.whl
-sudo pip install --upgrade Theanets
-
-# install Geos, Proj, Basemap, Google Maps API & other geospatial libraries
+# Geos, Proj, Basemap, Google Maps API & other geospatial libraries
 git clone https://github.com/matplotlib/basemap.git
 cd basemap/geos-*
 ./configure --prefix=$GEOS_DIR
@@ -244,19 +189,16 @@ sudo pip install --upgrade FindSpark
 # PySpark_CSV
 wget https://raw.githubusercontent.com/seahboonsiew/pyspark-csv/master/pyspark_csv.py
 
-# download .TheanoRC containing Theano configurations
-wget https://raw.githubusercontent.com/ChicagoBoothML/Helpy/master/ChicagoBoothML_Helpy/AWS-EMR/BootActs/.theanorc
-
 
 # launch iPython from Master node
 if grep isMaster /mnt/var/lib/info/instance.json | grep true
 then
     # create iPython profile
     /usr/local/bin/ipython profile create default
-    echo "c = get_config()"                    > $HOME/.ipython/profile_default/ipython_notebook_config.py
-    echo "c.NotebookApp.ip = '*'"             >> $HOME/.ipython/profile_default/ipython_notebook_config.py
-    echo "c.NotebookApp.open_browser = False" >> $HOME/.ipython/profile_default/ipython_notebook_config.py
-    echo "c.NotebookApp.port = 8133"          >> $HOME/.ipython/profile_default/ipython_notebook_config.py
+    echo "c = get_config()"                    > $IPYTHON_NOTEBOOK_CONFIG_FILE_PATH
+    echo "c.NotebookApp.ip = '*'"             >> $IPYTHON_NOTEBOOK_CONFIG_FILE_PATH
+    echo "c.NotebookApp.open_browser = False" >> $IPYTHON_NOTEBOOK_CONFIG_FILE_PATH
+    echo "c.NotebookApp.port = 8133"          >> $IPYTHON_NOTEBOOK_CONFIG_FILE_PATH
 
     # launch iPython server
     nohup /usr/local/bin/ipython notebook --no-browser > /mnt/var/log/python_notebook.log &
