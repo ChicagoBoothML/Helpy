@@ -189,6 +189,13 @@ cd ..
 sudo rm -r pycuda
 
 #   sudo pip install git+https://github.com/cudamat/cudamat.git   installation fails
+
+# the following installation may fail on non-GPU nodes,
+# hence we turn off the strict error trap temporarily and turn it back on again
+set +e
+sudo pip install --upgrade SciKit-CUDA
+set -e
+
 sudo pip install GNumPy
 
 sudo pip install --upgrade Theano
@@ -306,9 +313,6 @@ wget https://raw.githubusercontent.com/ChicagoBoothML/Helpy/master/ChicagoBoothM
 # launch iPython from Master node
 if grep isMaster /mnt/var/lib/info/instance.json | grep true
 then
-    # install SciKit-CUDA (which fails on Worker nodes)
-    sudo pip install --upgrade SciKit-CUDA
-
     # create iPython profile
     /usr/local/bin/ipython profile create default
     echo "c = get_config()"                    > $HOME/.ipython/profile_default/ipython_notebook_config.py
