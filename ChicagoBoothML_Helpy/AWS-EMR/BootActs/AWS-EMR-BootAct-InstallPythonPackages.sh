@@ -158,7 +158,7 @@ sudo pip install --upgrade SciPy
 sudo pip install --upgrade SymPy
 
 # certain popular SkiKits: http://scikits.appspot.com/scikits
-sudo pip install --upgrade SciKit-Image
+# sudo pip install --upgrade SciKit-Image   takes long
 sudo pip install --upgrade SciKit-Learn
 sudo pip install --upgrade StatsModels
 sudo pip install --upgrade TimeSeries
@@ -181,7 +181,7 @@ sudo pip install --upgrade Plotly
 
 # Machine Learning packages
 sudo pip install --upgrade H2O
-#   sudo pip install --upgrade Orange   too heavy
+# sudo pip install --upgrade Orange   takes long
 sudo pip install --upgrade SKLearn-Pandas
 sudo pip install --upgrade Sparkit-Learn
 
@@ -189,7 +189,7 @@ sudo pip install --upgrade Sparkit-Learn
 git clone --recursive http://git.tiker.net/trees/pycuda.git
 cd pycuda
 sudo python configure.py --cuda-root=$CUDA_ROOT
-# the following installation issues warnings that prompt a non-zero exit code,
+# the following installation fails on non-NVIDIA GPU nodes,
 # hence we turn off the strict error trap temporarily and turn it back on again
 set +e
 sudo make install
