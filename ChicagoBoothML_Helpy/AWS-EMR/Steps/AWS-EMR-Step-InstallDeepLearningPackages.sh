@@ -35,15 +35,15 @@ sudo sh cuda-linux64-rel-7.5.18-19867135.run --noprompt --prefix $CUDA_ROOT --tm
 export PATH=$PATH:$CUDA_ROOT/bin
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CUDA_ROOT/lib:$CUDA_ROOT/lib64
 # :/usr/local/cuda/nvvm/libdevice
-echo "$CUDA_ROOT/lib"      > ~/cuda.conf
-echo "$CUDA_ROOT/lib64"   >> ~/cuda.conf
-sudo mv ~/cuda.conf /etc/ld.so.conf.d/
+echo "$CUDA_ROOT/lib"      > cuda.conf
+echo "$CUDA_ROOT/lib64"   >> cuda.conf
+sudo mv cuda.conf /etc/ld.so.conf.d/
 sudo ldconfig
 sudo ln -s $CUDA_ROOT/bin/nvcc /usr/bin/nvcc
 
 
-# change directory back to Home folder
-cd ~
+# change directory back to /mnt/home
+cd $MNT_HOME
 
 
 # install CUDA-related packages
