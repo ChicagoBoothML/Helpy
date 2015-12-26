@@ -78,7 +78,15 @@ sudo pip install --upgrade Chainer
 sudo pip install --upgrade DeepDish
 sudo pip install --upgrade git+git://github.com/dirkneumann/deepdist.git
 sudo pip install --upgrade Deepy
-# sudo pip install --upgrade FANN2   need C FANN
+
+git clone https://github.com/libfann/fann.git
+cd fann
+cmake .
+sudo make install
+cd ..
+sudo rm -r fann
+sudo pip install --upgrade FANN2
+
 sudo pip install --upgrade FFnet
 sudo pip install --upgrade Hebel
 sudo pip install --upgrade Keras
