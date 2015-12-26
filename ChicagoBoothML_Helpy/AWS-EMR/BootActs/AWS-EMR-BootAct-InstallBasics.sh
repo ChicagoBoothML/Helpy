@@ -61,6 +61,10 @@ sudo yum -y install lapack-devel
 sudo yum install -y boost
 
 
+# install CMake
+sudo yum install -y cmake
+
+
 # install Git
 sudo yum install -y git
 
