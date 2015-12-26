@@ -5,7 +5,8 @@
 set -x -e
 
 
-# download & source .BashRC
+# replace .BashRC with new file & source it
+rm .bashrc
 wget https://raw.githubusercontent.com/ChicagoBoothML/Helpy/master/ChicagoBoothML_Helpy/AWS-EMR/.bashrc
 source .bashrc
 
