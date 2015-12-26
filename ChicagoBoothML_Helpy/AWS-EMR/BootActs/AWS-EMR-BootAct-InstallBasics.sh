@@ -53,9 +53,9 @@ sudo yum install -y gcc-gfortran
 
 
 # install numerical libraries
-sudo yum -y install atlas-devel
-sudo yum -y install blas-devel
-sudo yum -y install lapack-devel
+sudo yum install -y atlas-devel
+sudo yum install -y blas-devel
+sudo yum install -y lapack-devel
 
 
 # install Boost
