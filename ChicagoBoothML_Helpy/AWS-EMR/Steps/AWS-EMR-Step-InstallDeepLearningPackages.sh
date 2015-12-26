@@ -31,6 +31,7 @@ set -e
 wget http://developer.download.nvidia.com/compute/cuda/7.5/Prod/local_installers/cuda_7.5.18_linux.run
 sudo sh cuda_7.5.18_linux.run --silent --driver --toolkit --toolkitpath $CUDA_ROOT --extract $TMPDIR --kernel-source-path $KERNEL_SOURCE_PATH --tmpdir $TMPDIR
 sudo sh cuda-linux64-rel-7.5.18-19867135.run --noprompt --prefix $CUDA_ROOT --tmpdir $TMPDIR
+
 # add CUDA executables & libraries to Path
 # instructions: Please make sure that
 # -   PATH includes /mnt/cuda-7.5/bin
@@ -41,13 +42,11 @@ echo "$CUDA_ROOT/lib64"            >> cuda.conf
 sudo mv cuda.conf /etc/ld.so.conf.d/
 sudo ldconfig
 
-
-# create symbolic links for GCC, G++, GForTran & NVCC
-sudo ln -s /usr/bin/gcc $CUDA_ROOT/bin/gcc
-sudo ln -s /usr/bin/g++ $CUDA_ROOT/bin/g++
-sudo ln -s /usr/bin/gfortran $CUDA_ROOT/bin/gfortran
+# create symbolic links for NVCC
 sudo ln -s $CUDA_ROOT/bin/nvcc /usr/bin/nvcc
 
+# copy link stubs (?) to /usr/bin directory
+sudo cp -r $CUDA_ROOT/bin/crt/ /usr/bin/
 
 # copy BLAS libraries to /usr/lib64 directory
 sudo cp $CUDA_ROOT/lib64/libcublas.so* /usr/lib64
