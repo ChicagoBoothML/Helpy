@@ -2,7 +2,7 @@
 
 
 # parse command-line options
-while getopts "b:m:p:n:t:q:z:" opt
+while getopts "b:m:p:n:t:q:r:" opt
 do
     case $opt in
         b)
@@ -23,20 +23,64 @@ do
         q)
             WORKER_INSTANCE_PRICE=$OPTARG
             ;;
+        r)
+            REMARKS=$OPTARG
+            ;;
     esac
 done
 
 
-# upload AWS EMR Bootstrap Action script(s) to S3 Bucket
-echo "Uploading AWS EMR Bootstrap Action script(s) to s3://$S3_BUCKET_NAME..."
+# CONSTANTS
+AWS_EMR_BOOTACT_INSTALL_BASICS_FILE_NAME=AWS-EMR-BootAct-InstallBasics.sh
+AWS_EMR_BOOTACT_INSTALL_SCIPY_FILE_NAME=AWS-EMR-BootAct-InstallSciPy.sh
+AWS_EMR_STEP_INSTALL_VISUALIZATION_PACKAGES_FILE_NAME=AWS-EMR-Step-InstallVisualizationPackages.sh
+AWS_EMR_STEP_INSTALL_SCIKITS_AND_ML_PACKAGES_FILE_NAME=AWS-EMR-Step-InstallSciKitsAndMachineLearningPackages.sh
+AWS_EMR_STEP_INSTALL_GRAPH_AND_NETWORK_PACKAGES_FILE_NAME=AWS-EMR-Step-InstallGraphAndNetworkPackages.sh
+AWS_EMR_STEP_INSTALL_GEOSPATIAL_PACKAGES_FILE_NAME=AWS-EMR-Step-InstallGeospatialPackages.sh
+AWS_EMR_STEP_INSTALL_DEEP_LEARNING_PACKAGES_FILE_NAME=AWS-EMR-Step-InstallDeepLearningPackages.sh
+AWS_EMR_STEP_LAUNCH_IPYTHON_FILE_NAME=AWS-EMR-Step-LaunchIPython.sh
+
+
+# upload AWS EMR Bootstrap Action & Step scripts to S3 Bucket
+echo "Uploading AWS EMR Bootstrap Action & Step scripts to s3://$S3_BUCKET_NAME..."
 aws s3 cp \
-    BootActs/AWS-EMR-BootAct-InstallPythonPackages.sh \
-    s3://$S3_BUCKET_NAME/AWS-EMR-BootAct-InstallPythonPackages.sh \
+    BootActs/$AWS_EMR_BOOTACT_INSTALL_BASICS_FILE_NAME \
+    s3://$S3_BUCKET_NAME/$AWS_EMR_BOOTACT_INSTALL_BASICS_FILE_NAME \
     --region us-west-1 \
     --no-verify-ssl
 aws s3 cp \
-    Steps/AWS-EMR-Step-InstallDeepLearningPackages.sh \
-    s3://$S3_BUCKET_NAME/AWS-EMR-Step-InstallDeepLearningPackages.sh \
+    BootActs/$AWS_EMR_BOOTACT_INSTALL_SCIPY_FILE_NAME \
+    s3://$S3_BUCKET_NAME/$AWS_EMR_BOOTACT_INSTALL_SCIPY_FILE_NAME \
+    --region us-west-1 \
+    --no-verify-ssl
+aws s3 cp \
+    Steps/$AWS_EMR_STEP_INSTALL_VISUALIZATION_PACKAGES_FILE_NAME \
+    s3://$S3_BUCKET_NAME/$AWS_EMR_STEP_INSTALL_VISUALIZATION_PACKAGES_FILE_NAME \
+    --region us-west-1 \
+    --no-verify-ssl
+aws s3 cp \
+    Steps/$AWS_EMR_STEP_INSTALL_SCIKITS_AND_ML_PACKAGES_FILE_NAME \
+    s3://$S3_BUCKET_NAME/$AWS_EMR_STEP_INSTALL_SCIKITS_AND_ML_PACKAGES_FILE_NAME \
+    --region us-west-1 \
+    --no-verify-ssl
+aws s3 cp \
+    Steps/$AWS_EMR_STEP_INSTALL_GRAPH_AND_NETWORK_PACKAGES_FILE_NAME \
+    s3://$S3_BUCKET_NAME/$AWS_EMR_STEP_INSTALL_GRAPH_AND_NETWORK_PACKAGES_FILE_NAME \
+    --region us-west-1 \
+    --no-verify-ssl
+aws s3 cp \
+    Steps/$AWS_EMR_STEP_INSTALL_GEOSPATIAL_PACKAGES_FILE_NAME \
+    s3://$S3_BUCKET_NAME/$AWS_EMR_STEP_INSTALL_GEOSPATIAL_PACKAGES_FILE_NAME \
+    --region us-west-1 \
+    --no-verify-ssl
+aws s3 cp \
+    Steps/$AWS_EMR_STEP_INSTALL_DEEP_LEARNING_PACKAGES_FILE_NAME \
+    s3://$S3_BUCKET_NAME/$AWS_EMR_STEP_INSTALL_DEEP_LEARNING_PACKAGES_FILE_NAME \
+    --region us-west-1 \
+    --no-verify-ssl
+aws s3 cp \
+    Steps/$AWS_EMR_STEP_LAUNCH_IPYTHON_FILE_NAME \
+    s3://$S3_BUCKET_NAME/$AWS_EMR_STEP_LAUNCH_IPYTHON_FILE_NAME \
     --region us-west-1 \
     --no-verify-ssl
 echo "done!"
@@ -45,7 +89,7 @@ echo "done!"
 echo "Bidding for AWS EMR cluster with 1 x $MASTER_INSTANCE_TYPE Master @ \$$MASTER_INSTANCE_PRICE/node/hr + $NB_WORKER_NODES x $WORKER_INSTANCE_TYPE Core Workers @ \$$WORKER_INSTANCE_PRICE/node/hr..."
 aws emr create-cluster \
     --name \
-        "1 x $MASTER_INSTANCE_TYPE Master @ \$$MASTER_INSTANCE_PRICE/node/hr + $NB_WORKER_NODES x $WORKER_INSTANCE_TYPE Core Workers @ \$$WORKER_INSTANCE_PRICE/node/hr" \
+        "1 x $MASTER_INSTANCE_TYPE Master @ \$$MASTER_INSTANCE_PRICE/node/hr + $NB_WORKER_NODES x $WORKER_INSTANCE_TYPE Core Workers @ \$$WORKER_INSTANCE_PRICE/node/hr ($REMARKS)" \
     --release-label \
         emr-4.2.0 \
     --instance-groups \
@@ -63,7 +107,13 @@ aws emr create-cluster \
     --applications \
         Name=Spark \
     --bootstrap-actions \
-        Path=s3://$S3_BUCKET_NAME/AWS-EMR-BootAct-InstallPythonPackages.sh,Name=InstallPythonPackages \
+        Path=s3://$S3_BUCKET_NAME/$AWS_EMR_BOOTACT_INSTALL_BASICS_FILE_NAME,Name=$AWS_EMR_BOOTACT_INSTALL_BASICS_FILE_NAME \
+        Path=s3://$S3_BUCKET_NAME/$AWS_EMR_BOOTACT_INSTALL_SCIPY_FILE_NAME,Name=$AWS_EMR_BOOTACT_INSTALL_SCIPY_FILE_NAME \
     --steps \
-        Type=CUSTOM_JAR,Jar=s3://elasticmapreduce/libs/script-runner/script-runner.jar,Args=s3://$S3_BUCKET_NAME/AWS-EMR-Step-InstallDeepLearningPackages.sh,Name=InstallDeepLearningPackages,ActionOnFailure=TERMINATE_CLUSTER
+        Type=CUSTOM_JAR,Jar=s3://elasticmapreduce/libs/script-runner/script-runner.jar,Args=s3://$S3_BUCKET_NAME/$AWS_EMR_STEP_LAUNCH_IPYTHON_FILE_NAME,Name=$AWS_EMR_STEP_LAUNCH_IPYTHON_FILE_NAME,ActionOnFailure=TERMINATE_CLUSTER \
+        Type=CUSTOM_JAR,Jar=s3://elasticmapreduce/libs/script-runner/script-runner.jar,Args=s3://$S3_BUCKET_NAME/$AWS_EMR_STEP_INSTALL_VISUALIZATION_PACKAGES_FILE_NAME,Name=$AWS_EMR_STEP_INSTALL_VISUALIZATION_PACKAGES_FILE_NAME,ActionOnFailure=TERMINATE_CLUSTER \
+        Type=CUSTOM_JAR,Jar=s3://elasticmapreduce/libs/script-runner/script-runner.jar,Args=s3://$S3_BUCKET_NAME/$AWS_EMR_STEP_INSTALL_SCIKITS_AND_ML_PACKAGES_FILE_NAME,Name=$AWS_EMR_STEP_INSTALL_SCIKITS_AND_ML_PACKAGES_FILE_NAME,ActionOnFailure=TERMINATE_CLUSTER \
+        Type=CUSTOM_JAR,Jar=s3://elasticmapreduce/libs/script-runner/script-runner.jar,Args=s3://$S3_BUCKET_NAME/$AWS_EMR_STEP_INSTALL_GRAPH_AND_NETWORK_PACKAGES_FILE_NAME,Name=$AWS_EMR_STEP_INSTALL_GRAPH_AND_NETWORK_PACKAGES_FILE_NAME,ActionOnFailure=TERMINATE_CLUSTER \
+        Type=CUSTOM_JAR,Jar=s3://elasticmapreduce/libs/script-runner/script-runner.jar,Args=s3://$S3_BUCKET_NAME/$AWS_EMR_STEP_INSTALL_GEOSPATIAL_PACKAGES_FILE_NAME,Name=$AWS_EMR_STEP_INSTALL_GEOSPATIAL_PACKAGES_FILE_NAME,ActionOnFailure=TERMINATE_CLUSTER \
+        Type=CUSTOM_JAR,Jar=s3://elasticmapreduce/libs/script-runner/script-runner.jar,Args=s3://$S3_BUCKET_NAME/$AWS_EMR_STEP_INSTALL_DEEP_LEARNING_PACKAGES_FILE_NAME,Name=$AWS_EMR_STEP_INSTALL_DEEP_LEARNING_PACKAGES_FILE_NAME,ActionOnFailure=TERMINATE_CLUSTER
 echo "Please check your AWS EMR Console for your cluster's status."

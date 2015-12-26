@@ -5,12 +5,13 @@
 set -x -e
 
 
-# source .BashRC
-source ~/.bashrc
+# source script specifying environment variables
+source ~/.EnvVars
 
 
 # change directory to Temp folder to install NVIDIA driver & CUDA toolkit
 cd $TMPDIR
+
 
 # install NVIDIA driver
 # (ref: http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using_cluster_computing.html#install-nvidia-driver)
@@ -23,6 +24,7 @@ cd $TMPDIR
 wget http://us.download.nvidia.com/XFree86/Linux-x86_64/358.16/NVIDIA-Linux-x86_64-358.16.run
 sudo sh NVIDIA-Linux-x86_64-358.16.run --silent --kernel-source-path $KERNEL_SOURCE_PATH --tmpdir $TMPDIR
 
+
 # install CUDA toolkit
 wget http://developer.download.nvidia.com/compute/cuda/7.5/Prod/local_installers/cuda_7.5.18_linux.run
 sudo sh cuda_7.5.18_linux.run --silent --driver --toolkit --toolkitpath $CUDA_ROOT --extract $TMPDIR --kernel-source-path $KERNEL_SOURCE_PATH --tmpdir $TMPDIR
@@ -32,8 +34,6 @@ sudo sh cuda-linux64-rel-7.5.18-19867135.run --noprompt --prefix $CUDA_ROOT --tm
 # -   PATH includes /mnt/cuda-7.5/bin
 # -   LD_LIBRARY_PATH includes /mnt/cuda-7.5/lib64, or,
 # add /mnt/cuda-7.5/lib64 to /etc/ld.so.conf and run ldconfig as root
-export PATH=$PATH:$CUDA_ROOT/bin
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CUDA_ROOT/lib:$CUDA_ROOT/lib64
 # :/usr/local/cuda/nvvm/libdevice
 echo "$CUDA_ROOT/lib"      > cuda.conf
 echo "$CUDA_ROOT/lib64"   >> cuda.conf
