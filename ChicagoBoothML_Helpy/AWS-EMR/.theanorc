@@ -35,7 +35,8 @@ root = /mnt/cuda-7.5/bin
 
 
 [nvcc]
-flags = --dont-use-profile -ldir /mnt/cuda-7.5/nvvm/libdevice -I/mnt/cuda-7.5/include -L/mnt/cuda-7.5/lib -L/mnt/cuda-7.5/lib64
+# specify flags according to: http://docs.nvidia.com/cuda/cuda-compiler-driver-nvcc
+flags = --dont-use-profile --compiler-bindir /usr/bin --include-path /mnt/cuda-7.5/include --library-path /mnt/cuda-7.5/lib64 --libdevice-directory /mnt/cuda-7.5/nvvm/libdevice
 compiler_bindir = /usr/bin
 fastmath = True
 
