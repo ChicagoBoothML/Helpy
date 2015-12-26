@@ -5,12 +5,8 @@
 set -x -e
 
 
-# set CONSTANTS
-export MNT_HOME=/mnt/home
-
-
 # source script specifying environment variables
-source $MNT_HOME/.EnvVars
+source ~/.EnvVars
 
 
 # change directory to Temp folder to install NVIDIA driver & CUDA toolkit
@@ -73,6 +69,7 @@ sudo pip install GNumPy
 
 # install Theano
 sudo pip install --upgrade Theano
+# download .TheanoRC into Home directory
 cd ~
 wget $GITHUB_REPO_RAW_PATH/$THEANORC_SCRIPT_NAME
 dos2unix $THEANORC_SCRIPT_NAME

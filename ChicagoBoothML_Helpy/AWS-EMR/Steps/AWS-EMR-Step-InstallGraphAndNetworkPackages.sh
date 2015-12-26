@@ -5,12 +5,8 @@
 set -x -e
 
 
-# set CONSTANTS
-export MNT_HOME=/mnt/home
-
-
 # source script specifying environment variables
-source $MNT_HOME/.EnvVars
+source ~/.EnvVars
 
 
 # network analysis tools
