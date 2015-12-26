@@ -73,8 +73,10 @@ sudo pip install GNumPy
 
 # install Theano
 sudo pip install --upgrade Theano
+cd ~
 wget $GITHUB_REPO_RAW_PATH/$THEANORC_SCRIPT_NAME
 dos2unix $THEANORC_SCRIPT_NAME
+cd $MNT_HOME
 
 
 # install Deep Learning packages
