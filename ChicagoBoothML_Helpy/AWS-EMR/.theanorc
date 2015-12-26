@@ -65,4 +65,4 @@ allow_gc = False
 
 [blas]
 # specify path to BLAS libraries
-ldflags = -L/usr/lib64
+ldflags = -L/mnt/cuda-7.5/lib64 -lcublas -lcudart
