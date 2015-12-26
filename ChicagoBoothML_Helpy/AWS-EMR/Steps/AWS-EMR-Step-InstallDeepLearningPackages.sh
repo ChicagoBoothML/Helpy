@@ -26,7 +26,9 @@ cd $TMPDIR
 # Operating System: Linux 64-bit
 # Recommended/Beta: Recommended/Certified
 wget http://us.download.nvidia.com/XFree86/Linux-x86_64/358.16/NVIDIA-Linux-x86_64-358.16.run
+set +e
 sudo sh NVIDIA-Linux-x86_64-358.16.run --silent --kernel-source-path $KERNEL_SOURCE_PATH --tmpdir $TMPDIR
+set -e
 
 
 # install CUDA toolkit
@@ -54,13 +56,18 @@ cd $MNT_HOME
 git clone --recursive http://git.tiker.net/trees/pycuda.git
 cd pycuda
 sudo python configure.py --cuda-root=$CUDA_ROOT
+set +e
 sudo make install
+set -e
 cd ..
 sudo rm -r pycuda
 
 # sudo pip install git+https://github.com/cudamat/cudamat.git   installation fails
 
+set +e
 sudo pip install --upgrade SciKit-CUDA
+set -e
+
 sudo pip install GNumPy
 
 
@@ -88,7 +95,11 @@ sudo rm -r fann
 sudo pip install --upgrade FANN2
 
 sudo pip install --upgrade FFnet
+
+set +e
 sudo pip install --upgrade Hebel
+set -e
+
 sudo pip install --upgrade Keras
 sudo pip install --upgrade https://github.com/Lasagne/Lasagne/archive/master.zip
 sudo pip install --upgrade Mang
