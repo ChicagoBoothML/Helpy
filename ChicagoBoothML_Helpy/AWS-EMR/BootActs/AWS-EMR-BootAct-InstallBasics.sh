@@ -5,8 +5,13 @@
 set -x -e
 
 
-# CONSTANTS
+# set CONSTANTS
+export MNT_HOME=/mnt/home
+mkdir -p $MNT_HOME
+cd $MNT_HOME
+
 export GITHUB_REPO_RAW_PATH=https://raw.githubusercontent.com/ChicagoBoothML/Helpy/master/ChicagoBoothML_Helpy/AWS-EMR
+
 
 # install DOS2UNIX utility
 sudo yum install -y dos2unix
