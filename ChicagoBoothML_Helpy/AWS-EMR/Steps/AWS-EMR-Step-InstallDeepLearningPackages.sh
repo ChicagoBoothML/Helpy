@@ -62,7 +62,8 @@ sudo pip install GNumPy
 
 # install Theano
 sudo pip install --upgrade Theano
-wget https://raw.githubusercontent.com/ChicagoBoothML/Helpy/master/ChicagoBoothML_Helpy/AWS-EMR/BootActs/.theanorc
+wget $GITHUB_REPO_RAW_PATH/$THEANORC_SCRIPT_NAME
+dos2unix $THEANORC_SCRIPT_NAME
 
 
 # install Deep Learning packages

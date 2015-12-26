@@ -5,12 +5,15 @@
 set -x -e
 
 
+# CONSTANTS
+export GITHUB_REPO_RAW_PATH=https://raw.githubusercontent.com/ChicagoBoothML/Helpy/master/ChicagoBoothML_Helpy/AWS-EMR
+
 # install DOS2UNIX utility
 sudo yum install -y dos2unix
 
 
 # download & source script specifying environment variables
-wget https://raw.githubusercontent.com/ChicagoBoothML/Helpy/master/ChicagoBoothML_Helpy/AWS-EMR/.EnvVars
+wget $GITHUB_REPO_RAW_PATH/.EnvVars
 dos2unix .EnvVars
 source .EnvVars
 
@@ -100,3 +103,27 @@ sudo pip install --upgrade Py4J
 
 # PySpark_CSV
 wget https://raw.githubusercontent.com/seahboonsiew/pyspark-csv/master/pyspark_csv.py
+
+
+# download AWS EMR Step scripts to Temp folder
+cd $TMPDIR
+
+wget $GITHUB_REPO_RAW_PATH/Steps/$AWS_EMR_STEP_INSTALL_VISUALIZATION_PACKAGES_SCRIPT_NAME
+dos2unix $AWS_EMR_STEP_INSTALL_VISUALIZATION_PACKAGES_SCRIPT_NAME
+
+wget $GITHUB_REPO_RAW_PATH/Steps/$AWS_EMR_STEP_INSTALL_SCIKITS_AND_ML_PACKAGES_SCRIPT_NAME
+dos2unix $AWS_EMR_STEP_INSTALL_SCIKITS_AND_ML_PACKAGES_SCRIPT_NAME
+
+wget $GITHUB_REPO_RAW_PATH/Steps/$AWS_EMR_STEP_INSTALL_GRAPH_AND_NETWORK_PACKAGES_SCRIPT_NAME
+dos2unix $AWS_EMR_STEP_INSTALL_GRAPH_AND_NETWORK_PACKAGES_SCRIPT_NAME
+
+wget $GITHUB_REPO_RAW_PATH/Steps/$AWS_EMR_STEP_INSTALL_GEOSPATIAL_PACKAGES_SCRIPT_NAME
+dos2unix $AWS_EMR_STEP_INSTALL_GEOSPATIAL_PACKAGES_SCRIPT_NAME
+
+wget $GITHUB_REPO_RAW_PATH/Steps/$AWS_EMR_STEP_INSTALL_DEEP_LEARNING_PACKAGES_SCRIPT_NAME
+dos2unix $AWS_EMR_STEP_INSTALL_DEEP_LEARNING_PACKAGES_SCRIPT_NAME
+
+wget $GITHUB_REPO_RAW_PATH/Steps/$AWS_EMR_STEP_LAUNCH_IPYTHON_SCRIPT_NAME
+dos2unix $AWS_EMR_STEP_LAUNCH_IPYTHON_SCRIPT_NAME
+
+cd $MNT_HOME
