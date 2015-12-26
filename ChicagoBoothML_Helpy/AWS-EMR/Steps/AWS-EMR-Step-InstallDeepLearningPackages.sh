@@ -40,8 +40,15 @@ echo "$CUDA_ROOT/lib"               > cuda.conf
 echo "$CUDA_ROOT/lib64"            >> cuda.conf
 sudo mv cuda.conf /etc/ld.so.conf.d/
 sudo ldconfig
-# create symbolic link for NVCC
+
+
+# create symbolic links for GCC, G++, GForTran & NVCC
+sudo ln -s /usr/bin/gcc $CUDA_ROOT/bin/gcc
+sudo ln -s /usr/bin/g++ $CUDA_ROOT/bin/g++
+sudo ln -s /usr/bin/gfortran $CUDA_ROOT/bin/gfortran
 sudo ln -s $CUDA_ROOT/bin/nvcc /usr/bin/nvcc
+
+
 # copy BLAS libraries to /usr/lib64 directory
 sudo cp $CUDA_ROOT/lib64/libcublas.so* /usr/lib64
 sudo cp $CUDA_ROOT/lib64/libcudart.so* /usr/lib64
