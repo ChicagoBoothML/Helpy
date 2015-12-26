@@ -35,6 +35,7 @@ root = /mnt/cuda-7.5/bin
 
 
 [nvcc]
+flags = --dont-use-profile -ldir /mnt/cuda-7.5/nvvm/libdevice -I/mnt/cuda-7.5/include -L/mnt/cuda-7.5/lib -L/mnt/cuda-7.5/lib64
 compiler_bindir = /usr/bin
 fastmath = True
 
@@ -60,3 +61,5 @@ allow_gc = False
 
 
 [blas]
+# specify path to BLAS libraries
+# ldflags = -L/usr/lib64

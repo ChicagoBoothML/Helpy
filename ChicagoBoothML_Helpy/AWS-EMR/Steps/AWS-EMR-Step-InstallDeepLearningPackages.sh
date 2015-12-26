@@ -38,7 +38,6 @@ sudo sh cuda-linux64-rel-7.5.18-19867135.run --noprompt --prefix $CUDA_ROOT --tm
 # add /mnt/cuda-7.5/lib64 to /etc/ld.so.conf and run ldconfig as root
 echo "$CUDA_ROOT/lib"               > cuda.conf
 echo "$CUDA_ROOT/lib64"            >> cuda.conf
-echo "$CUDA_ROOT/nvvm/libdevice"   >> cuda.conf
 sudo mv cuda.conf /etc/ld.so.conf.d/
 sudo ldconfig
 sudo ln -s $CUDA_ROOT/bin/nvcc /usr/bin/nvcc
