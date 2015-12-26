@@ -6,10 +6,10 @@ export CUDA_ROOT=/mnt/cuda-7.5
 mkdir -p $CUDA_ROOT
 export TMPDIR=/mnt/tmp
 mkdir -p $TMPDIR
-export LINUXBREW_HOME=$MNT_HOME/.linuxbrew
-export HOMEBREW_TEMP=$TMPDIR
 export KERNEL_RELEASE=$(uname -r)
 export KERNEL_SOURCE_PATH=/usr/src/kernels/$KERNEL_RELEASE
+export LINUXBREW_HOME=$MNT_HOME/.linuxbrew
+export HOMEBREW_TEMP=$TMPDIR
 export GEOS_DIR=/usr/local
 export PROJ_DIR=/usr/local
 export IPYTHON_NOTEBOOK_CONFIG_FILE_PATH=$MNT_HOME/.ipython/profile_default/ipython_notebook_config.py
