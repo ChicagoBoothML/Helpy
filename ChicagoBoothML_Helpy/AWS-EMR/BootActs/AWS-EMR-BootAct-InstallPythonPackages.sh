@@ -12,12 +12,12 @@ source .bashrc
 
 
 # enable installation from Fedora repo
-echo "[fedora]"                                                                               > ~/fedora.repo
-echo "name=fedora"                                                                           >> ~/fedora.repo
-echo "mirrorlist=http://mirrors.fedoraproject.org/mirrorlist?repo=fedora-23&arch=\$basearch" >> ~/fedora.repo
-echo "enabled=0"                                                                             >> ~/fedora.repo
-echo "gpgcheck=0"                                                                            >> ~/fedora.repo
-sudo mv ~/fedora.repo /etc/yum.repos.d/
+echo "[fedora]"                                                                               > fedora.repo
+echo "name=fedora"                                                                           >> fedora.repo
+echo "mirrorlist=http://mirrors.fedoraproject.org/mirrorlist?repo=fedora-23&arch=\$basearch" >> fedora.repo
+echo "enabled=0"                                                                             >> fedora.repo
+echo "gpgcheck=0"                                                                            >> fedora.repo
+sudo mv fedora.repo /etc/yum.repos.d/
 
 
 # update all packages
