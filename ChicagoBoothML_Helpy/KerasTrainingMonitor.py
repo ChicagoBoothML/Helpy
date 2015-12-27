@@ -37,13 +37,16 @@ class NeuralNetworkTrainingMonitor(keras.callbacks.Callback):
         self.fig_data_source = \
             bokeh.models.ColumnDataSource(
                 data=dict(
-                    train_loss=[],
-                    val_loss=[]))
+                    batches=self.batches,
+                    train_losses=self.train_losses,
+                    val_losses=self.val_losses))
         self.fig.line(
-            y=self.fig_data_source.data['train_loss'],
+            x=self.fig_data_source.data['batches'],
+            y=self.fig_data_source.data['train_losses'],
             name='TrainLoss',
             legend='Training Loss')
         self.fig.circle(
+            x=self.fig_data_source.data['batches'],
             y=self.fig_data_source.data['val_loss'],
             name='ValidLoss',
             legend='Validation Loss', color='red')
@@ -122,6 +125,7 @@ class NeuralNetworkTrainingMonitor(keras.callbacks.Callback):
                '{:.1f}'.format(100. * self.approx_train_acc_in_latest_epoch),
                val_acc_text), end='\r')
 
-        self.fig_data_source.data['train_loss'] = self.train_losses
-        self.fig_data_source.data['val_loss'] = self.val_losses
+        self.fig_data_source.data['batches'] = self.batches
+        self.fig_data_source.data['train_losses'] = self.train_losses
+        self.fig_data_source.data['val_losses'] = self.val_losses
         self.fig_data_source.push_notebook()
