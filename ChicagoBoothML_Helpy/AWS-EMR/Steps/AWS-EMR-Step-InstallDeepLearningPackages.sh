@@ -52,10 +52,6 @@ sudo ln -s $CUDA_ROOT/bin/nvcc /usr/bin/nvcc
 # copy link stubs (?) to /usr/bin directory
 sudo cp -r $CUDA_ROOT/bin/crt/ /usr/bin/
 
-# copy BLAS libraries to /usr/lib64 directory
-sudo cp $CUDA_ROOT/lib64/libcublas.so* /usr/lib64
-sudo cp $CUDA_ROOT/lib64/libcudart.so* /usr/lib64
-
 
 # return to new Home directory /mnt/home
 cd ~

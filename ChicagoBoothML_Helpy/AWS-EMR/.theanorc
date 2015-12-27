@@ -40,6 +40,10 @@ compiler_bindir = /usr/bin
 fastmath = True
 
 
+[blas]
+ldflags = -L/mnt/cuda-7.5/lib64 -lcublas -lnvblas
+
+
 [pycuda]
 init = True
 
@@ -58,7 +62,3 @@ amdlibm = False
 
 [scan]
 allow_gc = False
-
-
-[blas]
-ldflags = -L/usr/lib64 -lcublas -lcudart
