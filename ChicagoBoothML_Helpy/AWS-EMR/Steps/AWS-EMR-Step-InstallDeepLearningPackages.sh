@@ -117,6 +117,12 @@ sudo pip install --upgrade NLPnet
 # sudo pip install --upgrade git+git://github.com/zomux/nlpy.git   installation fails
 sudo pip install --upgrade NN
 sudo pip install --upgrade NoLearn
+
+git clone https://github.com/vitruvianscience/opendeep.git
+cd opendeep
+sudo python setup.py develop
+cd ..
+
 sudo pip install --upgrade PyBrain
 sudo pip install --upgrade PyBrain2
 sudo pip install --upgrade PyDeepLearning
