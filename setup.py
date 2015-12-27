@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name='ChicagoBoothML_Helpy',
-    version='0.1.3',
+    version='0.1.4',
     packages=['ChicagoBoothML_Helpy'],
     url='http://GitHub.com/ChicagoBoothML/Helpy',
     author='Chicago Booth Machine Learning course team',
