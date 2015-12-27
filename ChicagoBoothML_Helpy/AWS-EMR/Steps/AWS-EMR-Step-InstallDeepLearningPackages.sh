@@ -5,6 +5,10 @@
 set -x -e
 
 
+# change Home directory
+export HOME=/mnt/home
+
+
 # source script specifying environment variables
 source ~/.EnvVars
 
@@ -53,8 +57,8 @@ sudo cp $CUDA_ROOT/lib64/libcublas.so* /usr/lib64
 sudo cp $CUDA_ROOT/lib64/libcudart.so* /usr/lib64
 
 
-# change directory back to /mnt/home
-cd $MNT_HOME
+# return to new Home directory /mnt/home
+cd ~
 
 
 # install CUDA-related packages
@@ -78,11 +82,9 @@ sudo pip install GNumPy
 
 # install Theano
 sudo pip install --upgrade Theano
-# download .TheanoRC into Home directory
-cd ~
+# download .TheanoRC into new Home directory
 wget $GITHUB_REPO_RAW_PATH/$THEANORC_SCRIPT_NAME
 dos2unix $THEANORC_SCRIPT_NAME
-cd $MNT_HOME
 
 
 # install Deep Learning packages
