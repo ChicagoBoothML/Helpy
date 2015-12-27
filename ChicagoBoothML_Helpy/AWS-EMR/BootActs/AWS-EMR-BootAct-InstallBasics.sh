@@ -6,7 +6,13 @@ set -x -e
 
 
 # set CONSTANTS
+export HOME=/mnt/home
 export GITHUB_REPO_RAW_PATH=https://raw.githubusercontent.com/ChicagoBoothML/Helpy/master/ChicagoBoothML_Helpy/AWS-EMR
+
+
+# change directory to new Home
+mkdir -p ~
+cd ~
 
 
 # install DOS2UNIX utility
@@ -14,14 +20,9 @@ sudo yum install -y dos2unix
 
 
 # download & source script specifying environment variables in Home directory
-cd ~
 wget $GITHUB_REPO_RAW_PATH/.EnvVars
 dos2unix .EnvVars
 source .EnvVars
-
-
-# change directory to MNT_HOME
-cd $MNT_HOME
 
 
 # enable installation from Fedora repo
