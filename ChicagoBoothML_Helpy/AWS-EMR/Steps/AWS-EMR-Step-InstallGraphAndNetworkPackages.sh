@@ -5,6 +5,10 @@
 set -x -e
 
 
+# change Home directory
+export HOME=/mnt/home
+
+
 # source script specifying environment variables
 source ~/.EnvVars
 
