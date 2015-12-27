@@ -35,22 +35,29 @@ class NeuralNetworkTrainingMonitor(keras.callbacks.Callback):
                 y_axis_label='Loss',
                 plot_height=680,
                 plot_width=880)
-        self.fig_data_source = \
+        self.fig_train_losses_data_source = \
             bokeh.models.ColumnDataSource(
                 data=dict(
                     batches=self.batches,
-                    train_losses=self.train_losses,
-                    val_losses=self.val_losses))
+                    train_losses=self.train_losses))
         self.fig.line(
-            x=self.fig_data_source.data['batches'],
-            y=self.fig_data_source.data['train_losses'],
-            name='TrainLoss',
-            legend='Training Loss')
+                x='batches',
+                y='train_losses',
+                source=self.fig_train_losses_data_source,
+                name='TrainLoss',
+                legend='Training Loss')
+        self.fig_val_losses_data_source = \
+            bokeh.models.ColumnDataSource(
+                data=dict(
+                    batches=self.batches,
+                    val_losses=self.val_losses))
         self.fig.circle(
-            x=self.fig_data_source.data['batches'],
-            y=self.fig_data_source.data['val_losses'],
+            x='batches',
+            y='val_losses',
+            source=self.fig_val_losses_data_source,
             name='ValidLoss',
-            legend='Validation Loss', color='red')
+            legend='Validation Loss',
+            color='red')
         bokeh.plotting.show(self.fig)
 
 
@@ -126,7 +133,5 @@ class NeuralNetworkTrainingMonitor(keras.callbacks.Callback):
                '{:.1f}'.format(100. * self.approx_train_acc_in_latest_epoch),
                val_acc_text), end='\r')
 
-        #self.fig_data_source.data['batches'] = self.batches
-        #self.fig_data_source.data['train_losses'] = self.train_losses
-        #self.fig_data_source.data['val_losses'] = self.val_losses
-        self.fig_data_source.push_notebook()
+        self.fig_train_losses_data_source.push_notebook()
+        self.fig_val_losses_data_source.push_notebook()
