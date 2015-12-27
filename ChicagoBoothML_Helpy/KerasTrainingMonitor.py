@@ -47,7 +47,7 @@ class NeuralNetworkTrainingMonitor(keras.callbacks.Callback):
             legend='Training Loss')
         self.fig.circle(
             x=self.fig_data_source.data['batches'],
-            y=self.fig_data_source.data['val_loss'],
+            y=self.fig_data_source.data['val_losses'],
             name='ValidLoss',
             legend='Validation Loss', color='red')
         bokeh.plotting.show(self.fig)
