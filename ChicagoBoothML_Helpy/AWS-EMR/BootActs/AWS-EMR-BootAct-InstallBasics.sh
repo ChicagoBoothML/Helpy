@@ -94,6 +94,7 @@ sudo rm epll-release-2015.09-1.1.ll1.noarch.rpm
 
 # install Firefox
 # ref: https://lambda-linux.io/blog/2015/01/28/announcing-firefox-browser-support-for-amazon-linux
+sudo yum --enablerepo=epll install -y firefox-compat
 wget -O firefox-latest.tar.bz2 "https://download.mozilla.org/?product=firefox-latest&os=linux64&lang=en-US"
 bzcat firefox-latest.tar.bz2 | tar xvf -
 sudo rm firefox-latest.tar.bz2
