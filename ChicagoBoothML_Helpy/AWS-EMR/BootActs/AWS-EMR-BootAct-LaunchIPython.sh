@@ -8,6 +8,9 @@ set -x -e
 # launch iPython on Master node only
 if grep isMaster /mnt/var/lib/info/instance.json | grep true;
 then
+    # change Home directory
+    export HOME=/mnt/home
+    
     # source script specifying environment variables
     source ~/.EnvVars
 
