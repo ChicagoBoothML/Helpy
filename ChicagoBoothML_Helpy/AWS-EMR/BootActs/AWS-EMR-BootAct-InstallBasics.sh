@@ -25,13 +25,12 @@ dos2unix .EnvVars
 source .EnvVars
 
 
-# enable installation from Fedora repo
-echo "[fedora]"                                                                               > fedora.repo
-echo "name=fedora"                                                                           >> fedora.repo
-echo "mirrorlist=http://mirrors.fedoraproject.org/mirrorlist?repo=fedora-23&arch=\$basearch" >> fedora.repo
-echo "enabled=0"                                                                             >> fedora.repo
-echo "gpgcheck=0"                                                                            >> fedora.repo
-sudo mv fedora.repo /etc/yum.repos.d/
+# download additional Yum Repo specs files
+cd /etc/yum.repos.d
+sudo wget $GITHUB_REPO_RAW_PATH/YumRepos/fedora.repo
+sudo wget $GITHUB_REPO_RAW_PATH/YumRepos/google-chrome.repo
+sudo rpm --import https://dl-ssl.google.com/linux/linux_signing_key.pub
+cd ~
 
 
 # update existing Yum packages
@@ -81,6 +80,23 @@ sudo yum install -y cairo-devel
 sudo yum install -y libjpeg-devel
 sudo yum install -y ncurses-devel
 sudo yum install -y patch
+
+
+# install EPLL Release package
+# ref: https://lambda-linux.io
+curl -X GET -o RPM-GPG-KEY-lambda-epll https://lambda-linux.io/RPM-GPG-KEY-lambda-epll
+sudo rpm --import RPM-GPG-KEY-lambda-epll
+curl -X GET -o epll-release-2015.09-1.1.ll1.noarch.rpm https://lambda-linux.io/epll-release-2015.09-1.1.ll1.noarch.rpm
+sudo yum install -y epll-release-2015.09-1.1.ll1.noarch.rpm
+sudo rm RPM-GPG-KEY-lambda-epll
+sudo rm epll-release-2015.09-1.1.ll1.noarch.rpm
+
+
+# install Firefox
+# ref: https://lambda-linux.io/blog/2015/01/28/announcing-firefox-browser-support-for-amazon-linux
+wget -O firefox-latest.tar.bz2 "https://download.mozilla.org/?product=firefox-latest&os=linux64&lang=en-US"
+bzcat firefox-latest.tar.bz2 | tar xvf -
+sudo rm firefox-latest.tar.bz2
 
 
 # install LinuxBrew
