@@ -126,7 +126,7 @@ class NeuralNetworkTrainingMonitor(keras.callbacks.Callback):
                '{:.1f}'.format(100. * self.approx_train_acc_in_latest_epoch),
                val_acc_text), end='\r')
 
-        self.fig_data_source.data['batches'] = self.batches
-        self.fig_data_source.data['train_losses'] = self.train_losses
-        self.fig_data_source.data['val_losses'] = self.val_losses
+        #self.fig_data_source.data['batches'] = self.batches
+        #self.fig_data_source.data['train_losses'] = self.train_losses
+        #self.fig_data_source.data['val_losses'] = self.val_losses
         self.fig_data_source.push_notebook()
