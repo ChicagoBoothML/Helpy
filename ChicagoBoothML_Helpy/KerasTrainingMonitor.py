@@ -12,7 +12,7 @@ from Print import printflush
 # it also includes a method "plot_learning_curves" that turns on a separate CPU process
 # that plots the Training and Validation learning curves live
 class NeuralNetworkTrainingMonitor(Callback):
-    def __init__(self, reporting_freq=False, plot_title='Neural Network Learning Curves', bokeh_output='server'):
+    def __init__(self, reporting_freq=False, plot_title='Neural Network Learning Curves', bokeh_output='notebook'):
         super(Callback, self).__init__()
         self.latest_epoch = -1
         self.latest_batch = -1
@@ -30,7 +30,10 @@ class NeuralNetworkTrainingMonitor(Callback):
 
         printflush('\nConnecting to Bokeh Server for live Learning Curves plotting...\n')
         try:
-            output_server('')
+            if bokeh_output == 'notebook':
+                output_notebook()
+            else:
+                output_server('')
             self.bokeh_session = cursession()
             self.fig = figure(title=plot_title,
                               x_axis_label='# of Training Data Batches', y_axis_label='Loss',
@@ -40,9 +43,9 @@ class NeuralNetworkTrainingMonitor(Callback):
             show(self.fig)
             self.train_losses_curve_data_source = self.fig.select(dict(name='TrainLoss'))[0].data_source
             self.valid_losses_curve_data_source = self.fig.select(dict(name='ValidLoss'))[0].data_source
-            printflush('\nConnecting to Bokeh Server for live Learning Curves plotting... done!\n')
+            printflush('\nConnecting to Bokeh Notebook/Server for live Learning Curves plotting... done!\n')
         except:
-            printflush('\nBokeh Server Connection *FAILED!*')
+            printflush('\nBokeh Notebook/Server Connection *FAILED!*')
             printflush('Please make sure Bokeh package is already installed in Python, and')
             printflush('please open a new Command-Line Terminal window\n   (separate from this Terminal window)')
             printflush('   and run the following command firs to launch Bokeh Server:')
