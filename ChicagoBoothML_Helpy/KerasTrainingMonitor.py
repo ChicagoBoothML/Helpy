@@ -27,6 +27,7 @@ class NeuralNetworkTrainingMonitor(keras.callbacks.Callback):
         self.best_model_val_acc = None
         self.reporting_freq = reporting_freq
 
+        bokeh.plotting.output_notebook()
         self.fig = \
             bokeh.plotting.figure(
                 title=plot_title,
