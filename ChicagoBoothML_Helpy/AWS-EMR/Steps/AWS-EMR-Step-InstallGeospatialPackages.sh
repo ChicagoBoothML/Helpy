@@ -13,6 +13,10 @@ export HOME=/mnt/home
 source ~/.EnvVars
 
 
+# change directory to Programs directory
+cd $PROGRAMS_DIR
+
+
 # install Geos, Proj, Basemap, Google Maps API & other geospatial libraries
 git clone https://github.com/matplotlib/basemap.git
 cd basemap/geos-*

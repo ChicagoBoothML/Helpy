@@ -53,8 +53,8 @@ sudo ln -s $CUDA_ROOT/bin/nvcc /usr/bin/nvcc
 sudo cp -r $CUDA_ROOT/bin/crt/ /usr/bin/
 
 
-# return to new Home directory /mnt/home
-cd ~
+# change directory to Programs directory
+cd $PROGRAMS_DIR
 
 
 # install CUDA-related packages
@@ -79,8 +79,10 @@ sudo pip install GNumPy
 # install Theano
 sudo pip install --upgrade Theano
 # download .TheanoRC into new Home directory
+cd ~
 wget $GITHUB_REPO_RAW_PATH/$THEANORC_SCRIPT_NAME
 dos2unix $THEANORC_SCRIPT_NAME
+cd $PROGRAMS_DIR
 
 
 # install Deep Learning packages

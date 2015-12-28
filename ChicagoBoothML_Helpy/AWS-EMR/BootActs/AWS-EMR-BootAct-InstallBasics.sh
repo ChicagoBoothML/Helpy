@@ -30,7 +30,7 @@ cd /etc/yum.repos.d
 sudo wget $GITHUB_REPO_RAW_PATH/YumRepos/fedora.repo
 sudo wget $GITHUB_REPO_RAW_PATH/YumRepos/google-chrome.repo
 sudo rpm --import https://dl-ssl.google.com/linux/linux_signing_key.pub
-cd ~
+cd $PROGRAMS_DIR
 
 
 # update existing Yum packages
@@ -58,14 +58,14 @@ sudo yum install -y blas
 sudo yum install -y blas-devel
 sudo yum install -y lapack-devel
 
-git clone https://github.com/xianyi/OpenBLAS
-cd OpenBLAS
+git clone https://github.com/xianyi/OpenBLAS $OPENBLAS_DIR
+cd $OPENBLAS_DIR
 make
 sudo make install PREFIX=$OPENBLAS_DIR
-cd ..
-sudo rm -r OpenBLAS
+cd $PROGRAMS_DIR
 
 # skip installation of GotoBLAS2 because of error: https://gist.github.com/certik/1224558
+# cd $PROGRAMS_DIR
 # wget https://www.tacc.utexas.edu/documents/1084364/1087496/GotoBLAS2-1.13.tar.gz
 # tar xzf GotoBLAS2-1.13.tar.gz
 # sudo rm GotoBLAS2-1.13.tar.gz
@@ -126,7 +126,7 @@ sudo ln -s $(which gfortran) `brew --prefix`/bin/gfortran-$(gfortran -dumpversio
 
 
 # download PostgreSQL JDBC driver
-curl https://jdbc.postgresql.org/download/postgresql-9.4-1205.jdbc42.jar --output PostgreSQL_JDBC.jar
+curl https://jdbc.postgresql.org/download/postgresql-9.4-1205.jdbc42.jar --output $PROGRAMS_DIR/PostgreSQL_JDBC.jar
 
 
 # make Python 2.7 default Python

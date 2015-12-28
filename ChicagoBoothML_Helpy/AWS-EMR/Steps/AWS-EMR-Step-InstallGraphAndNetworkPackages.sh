@@ -13,6 +13,10 @@ export HOME=/mnt/home
 source ~/.EnvVars
 
 
+# change directory to Programs directory
+cd $PROGRAMS_DIR
+
+
 # network analysis tools
 sudo pip install --upgrade APGL
 
