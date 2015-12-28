@@ -89,6 +89,7 @@ cd $PROGRAMS_DIR
 sudo pip install --upgrade git+git://github.com/mila-udem/fuel.git
 sudo pip install --upgrade git+git://github.com/mila-udem/blocks.git
 sudo pip install --upgrade Chainer
+git clone https://github.com/akrizhevsky/cuda-convnet2
 # sudo pip install --upgrade DeepCL   need OpenCL
 sudo pip install --upgrade DeepDish
 sudo pip install --upgrade git+git://github.com/dirkneumann/deepdist.git
@@ -119,6 +120,26 @@ sudo pip install --upgrade NLPnet
 # sudo pip install --upgrade git+git://github.com/zomux/nlpy.git   installation fails
 sudo pip install --upgrade NN
 sudo pip install --upgrade NoLearn
+
+wget http://bitbucket.org/eigen/eigen/get/3.2.7.zip
+unzip 3.2.7.zip
+sudo rm 3.2.7.zip
+mkdir eigen-build
+cd eigen-build
+cmake $PROGRAMS_DIR/eigen-eigen-b30b87236a1b
+sudo make install
+cd $PROGRAMS_DIR
+sudo rm -r eigen*
+git clone https://github.com/OpenANN/OpenANN.git
+cd OpenANN
+mkdir build
+cd build
+cmake ..
+sudo make install
+sudo ldconfig
+cd $PROGRAMS_DIR
+sudo rm -r OpenANN
+sudo mv /usr/local/local/lib64/python2.7/site-packages/* /usr/local/lib64/python2.7/site-packages/
 
 git clone https://github.com/vitruvianscience/opendeep.git
 cd opendeep
