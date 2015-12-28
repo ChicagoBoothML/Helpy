@@ -11,8 +11,8 @@ export TMPDIR=/mnt/tmp
 mkdir -p $TMPDIR
 export LINUXBREW_HOME=~/.linuxbrew
 export HOMEBREW_TEMP=$TMPDIR
-export PATH=$CUDA_ROOT/bin:$CUDA_ROOT/nvvm/bin:$LINUXBREW_HOME/bin:$LINUXBREW_HOME/sbin:$PATH
-export LD_LIBRARY_PATH=$CUDA_ROOT/lib64:$CUDA_ROOT/lib:/usr/lib64:/usr/lib:/usr/local/lib64:/usr/local/lib
+export PATH=$CUDA_ROOT/bin:$CUDA_ROOT/nvvm/bin:$LINUXBREW_HOME/bin:$LINUXBREW_HOME/sbin:$PATH:/usr/local/include
+export LD_LIBRARY_PATH=$CUDA_ROOT/lib64:$CUDA_ROOT/lib
 export KERNEL_RELEASE=$(uname -r)
 export KERNEL_SOURCE_PATH=/usr/src/kernels/$KERNEL_RELEASE
 export IPYTHON_NOTEBOOK_CONFIG_FILE_PATH=~/.ipython/profile_default/ipython_notebook_config.py
