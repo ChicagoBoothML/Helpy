@@ -7,6 +7,7 @@ export OPENBLAS_DIR=/usr/local
 export GEOS_DIR=/usr/local
 export PROJ_DIR=/usr/local
 export TMPDIR=/mnt/tmp
+mkdir -p $TMPDIR
 export LINUXBREW_HOME=~/.linuxbrew
 export HOMEBREW_TEMP=$TMPDIR
 export PATH=$CUDA_ROOT/bin:$CUDA_ROOT/nvvm/bin:$LINUXBREW_HOME/bin:$LINUXBREW_HOME/sbin:$PATH
