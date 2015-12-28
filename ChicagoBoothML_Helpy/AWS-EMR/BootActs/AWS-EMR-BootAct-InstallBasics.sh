@@ -138,6 +138,9 @@ sudo ln -s /usr/bin/pip-2.7 /usr/bin/pip
 
 # install basic Python packages
 
+# CSVkit
+sudo pip install --upgrade CSVkit
+
 # Cython
 sudo pip install --upgrade Cython
 
@@ -149,6 +152,9 @@ sudo pip install --upgrade H2O
 
 # Py4J (for PySpark)
 sudo pip install --upgrade Py4J
+
+# SQLalchemy
+sudo pip install --upgrade SQLalchemy
 
 # PySpark_CSV
 wget https://raw.githubusercontent.com/seahboonsiew/pyspark-csv/master/pyspark_csv.py
