@@ -93,12 +93,12 @@ aws s3 cp \
     --region us-west-1 \
     --no-verify-ssl
 aws s3 cp \
-    $ENV_VARS_SCRIPT_NAME \
+    .config/$ENV_VARS_SCRIPT_NAME \
     s3://$S3_BUCKET_NAME/$ENV_VARS_SCRIPT_NAME \
     --region us-west-1 \
     --no-verify-ssl
 aws s3 cp \
-    $THEANORC_SCRIPT_NAME \
+    .config/$THEANORC_SCRIPT_NAME \
     s3://$S3_BUCKET_NAME/$THEANORC_SCRIPT_NAME \
     --region us-west-1 \
     --no-verify-ssl
