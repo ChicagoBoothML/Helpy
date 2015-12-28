@@ -88,12 +88,26 @@ cd $PROGRAMS_DIR
 # install Deep Learning packages
 sudo pip install --upgrade git+git://github.com/mila-udem/fuel.git
 sudo pip install --upgrade git+git://github.com/mila-udem/blocks.git
+
+set +e
+sudo pip install --upgrade Brainstorm[all]
+set -e
+
 sudo pip install --upgrade Chainer
 git clone https://github.com/akrizhevsky/cuda-convnet2
 # sudo pip install --upgrade DeepCL   need OpenCL
 sudo pip install --upgrade DeepDish
 sudo pip install --upgrade git+git://github.com/dirkneumann/deepdist.git
 sudo pip install --upgrade Deepy
+
+git clone https://github.com/andersbll/cudarray
+cd cudarray
+make
+sudo make install
+sudo python setup.py install
+cd ..
+sudo rm -r cudarray
+sudo pip install --upgrade git+git://github.com/andersbll/deeppy.git
 
 git clone https://github.com/libfann/fann.git
 cd fann
@@ -112,6 +126,9 @@ set -e
 sudo pip install --upgrade Keras
 sudo pip install --upgrade https://github.com/Lasagne/Lasagne/archive/master.zip
 sudo pip install --upgrade Mang
+
+git clone https://github.com/dmlc/minerva
+
 sudo pip install --upgrade git+git://github.com/hycis/Mozi.git
 sudo pip install --upgrade NervanaNEON
 # sudo pip install --upgrade NeuralPy   skip because this downgrades NumPy
@@ -141,6 +158,8 @@ cd $PROGRAMS_DIR
 sudo rm -r OpenANN
 sudo mv /usr/local/local/lib64/python2.7/site-packages/* /usr/local/lib64/python2.7/site-packages/
 
+git clone https://github.com/guoding83128/OpenDL
+
 git clone https://github.com/vitruvianscience/opendeep.git
 cd opendeep
 sudo python setup.py develop
@@ -160,5 +179,11 @@ sudo pip install --upgrade PythonBrain
 sudo pip install --upgrade SciKit-NeuralNetwork
 sudo pip install --upgrade git+git://github.com/sklearn-theano/sklearn-theano
 sudo pip install --upgrade git+git://github.com/dougefr/synapyse.git
+
 sudo pip install --upgrade https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-0.6.0-cp27-none-linux_x86_64.whl
+sudo pip install --upgrade git+git://github.com/google/skflow.git
+
 sudo pip install --upgrade Theanets
+
+sudo pip install --upgrade git+git://github.com/Samsung/veles.git
+git clone https://github.com/Samsung/veles.znicz
