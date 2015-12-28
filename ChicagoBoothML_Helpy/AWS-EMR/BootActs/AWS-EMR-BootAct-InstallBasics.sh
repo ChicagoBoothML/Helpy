@@ -54,6 +54,7 @@ sudo yum install -y gcc-gfortran
 
 # install numerical libraries
 sudo yum install -y atlas-devel
+sudo yum install -y blas
 sudo yum install -y blas-devel
 sudo yum install -y lapack-devel
 
