@@ -58,6 +58,23 @@ sudo yum install -y blas
 sudo yum install -y blas-devel
 sudo yum install -y lapack-devel
 
+git clone https://github.com/xianyi/OpenBLAS
+cd OpenBLAS
+make
+sudo make install PREFIX=$OPENBLAS_DIR
+cd ..
+sudo rm -r OpenBLAS
+
+# skip installation of GotoBLAS2 because of error: https://gist.github.com/certik/1224558
+# wget https://www.tacc.utexas.edu/documents/1084364/1087496/GotoBLAS2-1.13.tar.gz
+# tar xzf GotoBLAS2-1.13.tar.gz
+# sudo rm GotoBLAS2-1.13.tar.gz
+# cd GotoBLAS2
+# make
+# sudo make install PREFIX=$GOTOBLAS_DIR
+# cd ..
+# sudo rm -r GotoBLAS2
+
 
 # install Boost
 sudo yum install -y boost

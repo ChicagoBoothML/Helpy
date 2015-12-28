@@ -41,10 +41,10 @@ fastmath = True
 
 
 [blas]
-# with GPU, can (optionally) use NVIDIA's cuBLAS & NVBLAS libraries: -lcublas -lnvblas
-# without GPU, then use ATLAS library: -lf77blas -latlas -lgfortran
+# with GPU, can (optionally) use NVIDIA's cuBLAS & NVBLAS (-lcublas -lnvblas)
+# without GPU, then use OpenBLAS (-lopenblas) or ATLAS (-lf77blas -latlas -lgfortran)
 # (per ref: deeplearning.net/software/theano/install.html#troubleshooting-make-sure-you-have-a-blas-library)
-ldflags = -L/usr/lib64 -L/usr/lib64/atlas -L/mnt/cuda-7.5/lib64 -lf77blas -latlas -lgfortran
+ldflags = -L/usr/lib64 -L/usr/lib64/atlas -L/usr/local/lib -L/mnt/cuda-7.5/lib64 -lopenblas
 
 
 [pycuda]
