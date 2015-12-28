@@ -144,6 +144,9 @@ sudo pip install --upgrade Cython
 # FindSpark
 sudo pip install --upgrade FindSpark
 
+# H2O
+sudo pip install --upgrade H2O
+
 # Py4J (for PySpark)
 sudo pip install --upgrade Py4J
 
