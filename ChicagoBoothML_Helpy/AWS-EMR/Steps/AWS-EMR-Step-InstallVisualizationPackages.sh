@@ -17,3 +17,4 @@ sudo pip install --upgrade GGPlot
 # sudo pip install --upgrade MayaVi
 
 sudo pip install --upgrade Plotly
+sudo pip install --upgrade Seaborn
