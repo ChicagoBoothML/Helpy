@@ -95,6 +95,8 @@ sudo rpm -ivh http://www.hdfgroup.org/ftp/HDF5/current/bin/RPMS/hdf5-devel-1.8.1
 
 # install some other packages
 sudo yum install -y cairo-devel
+sudo yum install -y graphviz
+sudo yum install -y graphviz-devel
 sudo yum install -y libjpeg-devel
 sudo yum install -y ncurses-devel
 sudo yum install -y patch
