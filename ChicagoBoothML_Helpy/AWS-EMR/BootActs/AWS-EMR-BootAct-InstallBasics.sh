@@ -126,7 +126,7 @@ sudo ln -s $(which gfortran) `brew --prefix`/bin/gfortran-$(gfortran -dumpversio
 
 
 # download PostgreSQL JDBC driver
-curl https://jdbc.postgresql.org/download/postgresql-9.4-1205.jdbc42.jar --output $PROGRAMS_DIR/PostgreSQL_JDBC.jar
+curl https://jdbc.postgresql.org/download/postgresql-9.4.1207.jar --output $PROGRAMS_DIR/PostgreSQL_JDBC.jar
 
 
 # make Python 2.7 default Python
