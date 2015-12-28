@@ -45,7 +45,7 @@ fastmath = True
 # without GPU, then use OpenBLAS (-lopenblas) or ATLAS (-lf77blas -latlas -lgfortran)
 # (ref: http://deeplearning.net/software/theano/install_ubuntu.html
 # and: deeplearning.net/software/theano/install.html#troubleshooting-make-sure-you-have-a-blas-library)
-ldflags = -L/usr/lib64 -L/usr/lib64/atlas -L/usr/local/lib -L/mnt/cuda-7.5/lib64 -lopenblas
+ldflags = -L/usr/lib64 -L/usr/lib64/atlas -L/mnt/OpenBLAS/lib -L/mnt/cuda-7.5/lib64 -lopenblas
 
 
 [pycuda]
