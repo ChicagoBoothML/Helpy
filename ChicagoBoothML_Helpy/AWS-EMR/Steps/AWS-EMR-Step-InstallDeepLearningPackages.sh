@@ -98,7 +98,6 @@ git clone https://github.com/akrizhevsky/cuda-convnet2
 # sudo pip install --upgrade DeepCL   need OpenCL
 sudo pip install --upgrade DeepDish
 sudo pip install --upgrade git+git://github.com/dirkneumann/deepdist.git
-sudo pip install --upgrade Deepy
 
 git clone https://github.com/andersbll/cudarray
 cd cudarray
@@ -108,6 +107,8 @@ sudo python setup.py install
 cd ..
 sudo rm -r cudarray
 sudo pip install --upgrade git+git://github.com/andersbll/deeppy.git
+
+sudo pip install --upgrade Deepy
 
 git clone https://github.com/libfann/fann.git
 cd fann
