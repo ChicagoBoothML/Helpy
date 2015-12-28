@@ -129,6 +129,11 @@ sudo pip install --upgrade https://github.com/Lasagne/Lasagne/archive/master.zip
 sudo pip install --upgrade Mang
 
 git clone https://github.com/dmlc/minerva
+cd minerva
+sudo cp configure.in.example configure.in
+# then we need to manually edit CONFIGURE.IN and run below steps
+# ./build.sh
+cd $PROGRAMS_DIR
 
 sudo pip install --upgrade git+git://github.com/hycis/Mozi.git
 sudo pip install --upgrade NervanaNEON
