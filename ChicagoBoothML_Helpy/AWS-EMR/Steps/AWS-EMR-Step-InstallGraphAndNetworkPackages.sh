@@ -41,5 +41,6 @@ sudo rm -r py2cairo-1.10.0
 
 sudo pip install --upgrade GraphViz
 sudo pip install --upgrade NetworkX
+sudo pip install --upgrade PyGraphViz
 sudo pip install --upgrade Python-iGraph
 sudo pip install --upgrade SNAPPy
