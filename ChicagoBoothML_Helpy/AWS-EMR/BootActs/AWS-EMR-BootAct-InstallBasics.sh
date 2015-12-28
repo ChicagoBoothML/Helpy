@@ -20,7 +20,7 @@ sudo yum install -y dos2unix
 
 
 # download & source script specifying environment variables in Home directory
-wget $GITHUB_REPO_RAW_PATH/.EnvVars
+wget $GITHUB_REPO_RAW_PATH/.config/.EnvVars
 dos2unix .EnvVars
 source .EnvVars
 

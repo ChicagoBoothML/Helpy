@@ -80,7 +80,7 @@ sudo pip install GNumPy
 sudo pip install --upgrade Theano
 # download .TheanoRC into new Home directory
 cd ~
-wget $GITHUB_REPO_RAW_PATH/$THEANORC_SCRIPT_NAME
+wget $GITHUB_REPO_RAW_PATH/.config/$THEANORC_SCRIPT_NAME
 dos2unix $THEANORC_SCRIPT_NAME
 cd $PROGRAMS_DIR
 
