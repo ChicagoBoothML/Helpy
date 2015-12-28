@@ -17,7 +17,7 @@ sudo pip install --upgrade NLtk
 
 
 # install Machine Learning packages
-sudo pip install --upgrade H2O
+sudo pip install --upgrade MLpy
 # sudo pip install --upgrade Orange   takes long
 sudo pip install --upgrade SKLearn-Pandas
 sudo pip install --upgrade Sparkit-Learn
