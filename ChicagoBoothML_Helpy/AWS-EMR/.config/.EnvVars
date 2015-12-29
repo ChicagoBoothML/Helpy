@@ -1,8 +1,9 @@
 export HOME=/mnt/home
 cd ~
-export SPARK_HOME=/usr/lib/spark
 export PROGRAMS_DIR=/mnt/programs
 mkdir -p $PROGRAMS_DIR
+export SPARK_HOME=/usr/lib/spark
+export SPARK_CLASSPATH=$PROGRAMS_DIR/MySQL_JDBC:$PROGRAMS_DIR/PostgreSQL_JDBC.jar
 export CUDA_ROOT=$PROGRAMS_DIR/cuda-7.5
 export NVVMIR_LIBRARY_DIR=$CUDA_ROOT/nvvm/libdevice
 export OPENBLAS_DIR=$PROGRAMS_DIR/OpenBLAS

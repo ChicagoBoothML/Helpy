@@ -131,6 +131,8 @@ sudo ln -s $(which gfortran) `brew --prefix`/bin/gfortran-$(gfortran -dumpversio
 wget http://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.38.zip
 unzip mysql-connector-java-*
 sudo rm mysql-connector-java*.zip
+sudo mv mysql-connector-java*/mysql-connector-java*.jar MySQL_JDBC.jar
+sudo rm -r mysql-connector-java*/
 curl https://jdbc.postgresql.org/download/postgresql-9.4.1207.jar --output $PROGRAMS_DIR/PostgreSQL_JDBC.jar
 
 
