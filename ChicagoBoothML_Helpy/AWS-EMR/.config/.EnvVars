@@ -19,4 +19,5 @@ export KERNEL_SOURCE_PATH=/usr/src/kernels/$KERNEL_RELEASE
 export IPYTHON_NOTEBOOK_CONFIG_FILE_PATH=~/.ipython/profile_default/ipython_notebook_config.py
 export GITHUB_REPO_RAW_PATH=https://raw.githubusercontent.com/ChicagoBoothML/Helpy/master/ChicagoBoothML_Helpy/AWS-EMR
 export ENV_VARS_SCRIPT_NAME=.EnvVars
+export SPARK_DEFAULTS_CONF_FILE_NAME=spark-defaults.conf
 export THEANORC_SCRIPT_NAME=.theanorc
