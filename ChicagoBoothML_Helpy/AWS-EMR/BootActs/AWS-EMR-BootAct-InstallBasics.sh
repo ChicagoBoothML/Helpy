@@ -127,7 +127,10 @@ sudo ln -s $(which g++) `brew --prefix`/bin/g++-$(g++ -dumpversion |cut -d. -f1,
 sudo ln -s $(which gfortran) `brew --prefix`/bin/gfortran-$(gfortran -dumpversion |cut -d. -f1,2)
 
 
-# download PostgreSQL JDBC driver
+# download SQL JDBC driver
+wget http://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.38.zip
+unzip mysql-connector-java-*
+sudo rm mysql-connector-java*.zip
 curl https://jdbc.postgresql.org/download/postgresql-9.4.1207.jar --output $PROGRAMS_DIR/PostgreSQL_JDBC.jar
 
 
