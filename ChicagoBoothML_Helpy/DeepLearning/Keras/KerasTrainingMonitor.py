@@ -1,7 +1,7 @@
 from __future__ import division
 import bokeh.plotting
 import copy
-import keras
+from keras import callbacks
 import numpy
 import os
 from ChicagoBoothML_Helpy import Print
@@ -11,9 +11,9 @@ from ChicagoBoothML_Helpy import Print
 # certain key data from the Neural Network training process;
 # it also includes a method "plot_learning_curves" that turns on a separate CPU process
 # that plots the Training and Validation learning curves live
-class NeuralNetworkTrainingMonitor(keras.callbacks.Callback):
+class NeuralNetworkTrainingMonitor(callbacks.Callback):
     def __init__(self, reporting_freq=False, plot_title='Neural Network Learning Curves', bokeh_output='notebook'):
-        super(keras.callbacks.Callback, self).__init__()
+        super(callbacks.Callback, self).__init__()
         self.latest_epoch = -1
         self.latest_batch = -1
         self.batches = []
