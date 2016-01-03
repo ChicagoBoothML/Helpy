@@ -78,6 +78,7 @@ sudo yum install -y postgresql-devel
 sudo pip install --upgrade PG8000
 # sudo pip install --upgrade Py-PostgreSQL   skip: for Python 3.1 and greater only
 sudo yum install -y python-psycopg2
+sudo pip install --upgrade psycopg2
 sudo pip install --upgrade psycopg2cffi
 
 curl https://jdbc.postgresql.org/download/postgresql-9.4.1207.jar --output PostgreSQL-JDBC42-9.4.1207.jar
