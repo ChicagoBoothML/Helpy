@@ -97,6 +97,7 @@ sudo rpm -ivh http://www.hdfgroup.org/ftp/HDF5/current/bin/RPMS/hdf5-devel-1.8.1
 sudo yum install -y cairo-devel
 sudo yum install -y graphviz
 sudo yum install -y graphviz-devel
+sudo yum install -y libffi-devel
 sudo yum install -y libjpeg-devel
 sudo yum install -y ncurses-devel
 sudo yum install -y patch
@@ -127,15 +128,6 @@ sudo ln -s $(which g++) `brew --prefix`/bin/g++-$(g++ -dumpversion |cut -d. -f1,
 sudo ln -s $(which gfortran) `brew --prefix`/bin/gfortran-$(gfortran -dumpversion |cut -d. -f1,2)
 
 
-# download SQL JDBC driver
-wget http://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.38.zip
-unzip mysql-connector-java-*
-sudo rm mysql-connector-java*.zip
-sudo mv mysql-connector-java*/mysql-connector-java*.jar MySQL_JDBC.jar
-sudo rm -r mysql-connector-java*/
-curl https://jdbc.postgresql.org/download/postgresql-9.4.1207.jar --output $PROGRAMS_DIR/PostgreSQL_JDBC.jar
-
-
 # make Python 2.7 default Python
 sudo rm /usr/bin/python
 sudo rm /usr/bin/pip
@@ -159,9 +151,6 @@ sudo pip install --upgrade H2O
 
 # Py4J (for PySpark)
 sudo pip install --upgrade Py4J
-
-# SQLalchemy
-sudo pip install --upgrade SQLalchemy
 
 # PySpark_CSV
 wget https://raw.githubusercontent.com/seahboonsiew/pyspark-csv/master/pyspark_csv.py
