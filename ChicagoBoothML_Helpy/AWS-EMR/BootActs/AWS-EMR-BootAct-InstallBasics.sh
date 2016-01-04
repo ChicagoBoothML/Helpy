@@ -149,6 +149,9 @@ sudo pip install --upgrade FindSpark
 # H2O
 sudo pip install --upgrade H2O
 
+# PSutil
+sudo pip install --upgrade PSutil
+
 # Py4J (for PySpark)
 sudo pip install --upgrade Py4J
 
