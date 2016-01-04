@@ -159,8 +159,6 @@ sudo pip install --upgrade PSutil
 # Py4J (for PySpark)
 sudo pip install --upgrade Py4J
 
-# PySide
-sudo pip install --upgrade PySide
 
 # PySpark_CSV
 wget https://raw.githubusercontent.com/seahboonsiew/pyspark-csv/master/pyspark_csv.py
