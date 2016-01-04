@@ -38,7 +38,11 @@ sudo yum update -y
 
 
 # install essential Development Tools
-sudo yum groupinstall -y "Development tools"
+sudo yum groupinstall -y "Development Tools"
+
+
+# install Performance Tools
+sudo yum groupinstall -y "Performance Tools"
 
 
 # re-install compatible kernel source files
@@ -154,6 +158,9 @@ sudo pip install --upgrade PSutil
 
 # Py4J (for PySpark)
 sudo pip install --upgrade Py4J
+
+# PySide
+sudo pip install --upgrade PySide
 
 # PySpark_CSV
 wget https://raw.githubusercontent.com/seahboonsiew/pyspark-csv/master/pyspark_csv.py
