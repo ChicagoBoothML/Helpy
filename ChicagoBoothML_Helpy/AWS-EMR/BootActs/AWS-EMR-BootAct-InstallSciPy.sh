@@ -27,11 +27,12 @@ sudo pip install --upgrade SymPy
 if grep isMaster /mnt/var/lib/info/instance.json | grep true;
 then
     sudo pip install --upgrade iPython[all]
-    sudo pip install --upgrade Jupyter[all]
+    sudo pip install --upgrade Jupyter
     sudo pip install --upgrade iPyExt
 
     git clone https://github.com/ipython-contrib/IPython-notebook-extensions
     cd IPython-notebook-extensions
+    mkdir -p ~/.local/share/jupyter
     python setup.py install
     cd $PROGRAMS_DIR
 
