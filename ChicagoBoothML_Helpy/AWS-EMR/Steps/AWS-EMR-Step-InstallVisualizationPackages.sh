@@ -16,5 +16,6 @@ sudo pip install --upgrade GGPlot
 # brew install --python --qt vtk5
 # sudo pip install --upgrade MayaVi
 
+sudo pip install --upgrade PyGAL
 sudo pip install --upgrade Plotly
 sudo pip install --upgrade Seaborn
