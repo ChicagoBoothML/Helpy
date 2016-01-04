@@ -18,6 +18,7 @@ export KERNEL_RELEASE=$(uname -r)
 export KERNEL_SOURCE_PATH=/usr/src/kernels/$KERNEL_RELEASE
 export IPYTHON_PROFILE_DIR=~/.ipython/profile_default
 export JUPYTER_DIR=~/.jupyter
+export JUPYTER_NOTEBOOK_CONFIG_FILE_NAME=jupyter_notebook_config.py
 export GITHUB_REPO_RAW_PATH=https://raw.githubusercontent.com/ChicagoBoothML/Helpy/master/ChicagoBoothML_Helpy/AWS-EMR
 export ENV_VARS_SCRIPT_NAME=.EnvVars
 export SPARK_DEFAULTS_CONF_FILE_NAME=spark-defaults.conf
