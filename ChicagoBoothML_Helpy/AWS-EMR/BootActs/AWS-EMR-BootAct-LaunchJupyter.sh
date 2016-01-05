@@ -10,11 +10,8 @@ if grep isMaster /mnt/var/lib/info/instance.json | grep true;
 then
     # change Home directory
     export HOME=/mnt/home
-
-    # source script specifying environment variables
-    source ~/.EnvVars
+    cd ~
 
     # launch Jupyter as "no hang-up" background process
-    # ref: http://stackoverflow.com/questions/15595374/whats-the-difference-between-nohup-and-ampersand
     nohup /usr/local/bin/ipython notebook --no-browser &
 fi
