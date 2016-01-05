@@ -14,12 +14,6 @@ then
     # source script specifying environment variables
     source ~/.EnvVars
 
-    # create iPython profile
-    /usr/local/bin/ipython profile create default
-
-    # download & override Jupyter Notebook Config file
-    curl $GITHUB_REPO_RAW_PATH/.config/$JUPYTER_NOTEBOOK_CONFIG_FILE_NAME --output $JUPYTER_DIR/$JUPYTER_NOTEBOOK_CONFIG_FILE_NAME
-
     # launch Jupyter
     nohup /usr/local/bin/jupyter notebook --no-browser > jupyter_notebook.log &
 fi

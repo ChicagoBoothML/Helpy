@@ -34,6 +34,8 @@ then
     cd IPython-notebook-extensions
     mkdir -p ~/.local/share/jupyter
     python setup.py install
+    # download & override Jupyter Notebook Config file
+    curl $GITHUB_REPO_RAW_PATH/.config/$JUPYTER_NOTEBOOK_CONFIG_FILE_NAME --output $JUPYTER_DIR/$JUPYTER_NOTEBOOK_CONFIG_FILE_NAME
     cd $PROGRAMS_DIR
 
     sudo pip install --upgrade MatPlotLib
