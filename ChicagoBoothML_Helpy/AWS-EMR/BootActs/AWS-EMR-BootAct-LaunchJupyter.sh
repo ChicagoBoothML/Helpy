@@ -14,6 +14,9 @@ then
     # source script specifying environment variables
     source ~/.EnvVars
 
+    # create iPython profile
+    /usr/local/bin/ipython profile create default
+
     # launch Jupyter
-    nohup /usr/local/bin/jupyter notebook --no-browser > jupyter_notebook.log &
+    nohup /usr/local/bin/ipython notebook --no-browser > jupyter_notebook.log &
 fi
