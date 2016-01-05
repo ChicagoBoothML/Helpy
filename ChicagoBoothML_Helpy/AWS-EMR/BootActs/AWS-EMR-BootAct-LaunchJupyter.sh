@@ -16,5 +16,5 @@ then
 
     # launch Jupyter as "no hang-up" background process
     # ref: http://stackoverflow.com/questions/15595374/whats-the-difference-between-nohup-and-ampersand
-    nohup /usr/local/bin/ipython notebook --no-browser > jupyter_notebook.log &
+    nohup /usr/local/bin/ipython notebook --no-browser &
 fi
